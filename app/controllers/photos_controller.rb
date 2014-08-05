@@ -5,6 +5,8 @@ class PhotosController < ApplicationController
   # GET /photos.json
   def index
     @photos = Photo.all
+    @photos = @photos.where(album_id: params[:album_id]) if params.has_key? :album_id
+    @photos = @photos.page params[:page]
   end
 
   # GET /photos/1

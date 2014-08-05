@@ -1,4 +1,3 @@
-
 Cam.destroy_all
 Lens.destroy_all
 Album.destroy_all
@@ -11,8 +10,15 @@ lens = Lens.create name: 'Tokina 124 PRO DX II'
 
 album = Album.create name: 'Spain', description: 'Album description'
 
-[0..5].each do |i|
-  photo = Photo.create name: 'Photo 1', description: 'Photo description', album: album, cam: cam, lens: lens, iso: 100, aperture: 11, exposure: '1/1000', focal_distance: 34, image: image
+(0..5).each do |i|
+  photo = Photo.create name: "Photo #{i+1}", description: 'Photo description', album: album, cam: cam, lens: lens, iso: 100, aperture: 11, exposure: '1/1000', focal_distance: 34, image: image
 end
+
+album = Album.create name: 'Spain', description: 'Album description'
+
+(0..3).each do |i|
+  photo = Photo.create name: "Photo #{i+1}", description: 'Photo description', album: album, cam: cam, lens: lens, iso: 100, aperture: 11, exposure: '1/1000', focal_distance: 34, image: image
+end
+
 
 image.close
