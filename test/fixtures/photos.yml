@@ -1,0 +1,25 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  description: MyText
+  position: 1
+  views: 1
+  cam_id: 
+  lens_id: 
+  iso: 1
+  aperture: 1.5
+  exposure: MyString
+  focal_distance: 1
+
+two:
+  name: MyString
+  description: MyText
+  position: 1
+  views: 1
+  cam_id: 
+  lens_id: 
+  iso: 1
+  aperture: 1.5
+  exposure: MyString
+  focal_distance: 1

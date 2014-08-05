@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140805141611) do
+ActiveRecord::Schema.define(version: 20140805141814) do
 
   create_table "albums", force: true do |t|
     t.string   "name"
@@ -32,5 +32,23 @@ ActiveRecord::Schema.define(version: 20140805141611) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "photos", force: true do |t|
+    t.string   "name"
+    t.text     "description"
+    t.integer  "position"
+    t.integer  "views"
+    t.integer  "cam_id"
+    t.integer  "lens_id"
+    t.integer  "iso"
+    t.float    "aperture"
+    t.string   "exposure"
+    t.integer  "focal_distance"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "photos", ["cam_id"], name: "index_photos_on_cam_id"
+  add_index "photos", ["lens_id"], name: "index_photos_on_lens_id"
 
 end
