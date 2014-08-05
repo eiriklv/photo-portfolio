@@ -1,0 +1,19 @@
+%h1 Listing cams
+
+%table
+  %tr
+    %th Name
+    %th
+    %th
+    %th
+
+  - @cams.each do |cam|
+    %tr
+      %td= cam.name
+      %td= link_to 'Show', cam
+      %td= link_to 'Edit', edit_cam_path(cam)
+      %td= link_to 'Destroy', cam, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+= link_to 'New Cam', new_cam_path

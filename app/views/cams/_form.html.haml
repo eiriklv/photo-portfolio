@@ -1,0 +1,13 @@
+= form_for @cam do |f|
+  - if @cam.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@cam.errors.count, "error")} prohibited this cam from being saved:"
+      %ul
+        - @cam.errors.full_messages.each do |msg|
+          %li= msg
+
+  .field
+    = f.label :name
+    = f.text_field :name
+  .actions
+    = f.submit 'Save'
