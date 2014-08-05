@@ -52,3 +52,5 @@ group :development do
   gem 'coffee-rails-source-maps'
   gem 'sass-rails-source-maps'
 end
+
+gem 'acts_as_list'
