@@ -1,4 +1,4 @@
-class LensController < ApplicationController
+class LensesController < ApplicationController
   before_action :set_len, only: [:show, :edit, :update, :destroy]
 
   # GET /lens
