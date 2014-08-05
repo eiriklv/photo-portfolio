@@ -1,0 +1,10 @@
+!!!
+%html
+  %head
+    %title PhotoPortfolio
+    = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => false
+    =# javascript_include_tag 'application', 'data-turbolinks-track' => false
+    = requirejs_include_tag 'application'
+    = csrf_meta_tags
+  %body
+    = yield

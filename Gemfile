@@ -43,3 +43,12 @@ end
 
 # Use debugger
 # gem 'debugger', group: [:development, :test]
+
+
+gem 'haml-rails'
+gem 'requirejs-rails'
+
+group :development do
+  gem 'coffee-rails-source-maps'
+  gem 'sass-rails-source-maps'
+end
