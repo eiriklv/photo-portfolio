@@ -1,4 +1,6 @@
 PhotoPortfolio::Application.routes.draw do
+  resources :lens
+
   resources :cams
 
   resources :albums

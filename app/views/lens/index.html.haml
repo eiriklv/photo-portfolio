@@ -1,0 +1,19 @@
+%h1 Listing lens
+
+%table
+  %tr
+    %th Name
+    %th
+    %th
+    %th
+
+  - @lens.each do |len|
+    %tr
+      %td= len.name
+      %td= link_to 'Show', len
+      %td= link_to 'Edit', edit_len_path(len)
+      %td= link_to 'Destroy', len, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+= link_to 'New Len', new_len_path
