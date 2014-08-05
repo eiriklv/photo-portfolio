@@ -54,3 +54,5 @@ group :development do
 end
 
 gem 'acts_as_list'
+
+gem 'paperclip', '~> 4.1'
