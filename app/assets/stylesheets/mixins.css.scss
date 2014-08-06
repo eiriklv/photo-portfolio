@@ -1,0 +1,99 @@
+@mixin min-width ($value){
+	width: auto !important;
+	width: $value;
+	min-width: $value;
+}
+@mixin max-width ($value){
+	max-width:$value;
+}
+@mixin min-height($height) {
+	height:auto !important;
+	height:$height;
+	min-height:$height;
+}
+@mixin inline-block (){
+	display: -moz-inline-stack;
+	display: inline-block;
+	zoom: 1;
+//  *display: inline;
+}
+
+@mixin box-shadow ($distance:0px, $blur:3px, $opacity:1, $red:0, $green:0, $blue:0) {
+	$color: rgba($red, $green, $blue, $opacity);
+	-webkit-box-shadow: 0px $distance $blur $color;
+	-moz-box-shadow: 0px $distance $blur $color;
+	box-shadow: 0px $distance $blur $color;
+}
+
+@mixin border-radius ($radius) {
+	-webkit-border-radius: $radius;
+	-moz-border-radius: $radius;
+	border-radius: $radius;
+}
+
+@mixin text-shadow ($color, $blur) {
+	text-shadow: 0px 0px $blur $color;
+	-ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=1, Direction=0, Color='#{$color}')";
+}
+
+@mixin textBorder ($color) {
+	text-shadow: 0px 0px 2px $color;
+//  -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=1, Direction=180, Color='#{$color}')";
+}
+
+
+@mixin vgradient ($color1, $color2, $pStart: 0%, $pFinish: 100%) {
+	background:$color2;
+	background:-moz-linear-gradient(90deg, $color1 $pStart, $color2 $pFinish);
+	background:-webkit-linear-gradient(-90deg, $color1 $pStart, $color2 $pFinish);
+	background:-o-linear-gradient(90deg, $color1 $pStart, $color2 $pFinish);
+	background:-ms-linear-gradient(90deg, $color1 $pStart, $color2 $pFinish);
+	background:linear-gradient(180deg, $color1 $pStart, $color2 $pFinish);
+	-pie-background:linear-gradient(180deg, $color1 $pStart, $color2 $pFinish);
+}
+
+@mixin opacity ($opacity) {
+	opacity: $opacity;
+	-webkit-opacity: $opacity;
+	-moz-opacity: $opacity;
+	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=#{$opacity*100})";
+}
+
+@mixin size ($width, $height) {
+	width: $width;
+	height: $height;
+}
+
+@mixin background ($image, $left:left, $top:top, $repeat:no-repeat) {
+	background-image: url('#{asset_path($image)}');
+  background-position: $left $top;
+  background-repeat: $repeat;
+}
+
+@mixin animate ($str: all .35s) {
+  -webkit-transition:$str;
+  -moz-transition:$str;
+  -o-transition:$str;
+  transition:$str;
+}
+
+@mixin translate3d ($x: 0, $y: 0, $z: 0) {
+  -webkit-transform:translate3d($x, $y, $z);
+  -moz-transform:translate3d($x, $y, $z);
+  transform:translate3d($x, $y, $z);
+}
+
+@mixin rotate ($angle) {
+  transform:rotate($angle);
+  -ms-transform:rotate($angle);
+  -webkit-transform:rotate($angle);
+}
+
+@mixin unselectable {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}

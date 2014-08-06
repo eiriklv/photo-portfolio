@@ -1,0 +1,22 @@
+.footer{
+  clear:both;
+  height:50px;
+  text-align:center;
+  color:#333;
+  background:white;
+  text-transform:uppercase;
+  line-height:50px;
+  
+  a{
+    color:#666;
+    text-decoration:none;
+    border-bottom:1px solid #666;
+    @include inline-block;
+    line-height:13px;
+    @include animate;
+    
+    &:hover{
+      border-color:white;
+    }
+  }
+}

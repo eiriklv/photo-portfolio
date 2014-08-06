@@ -1,3 +1,5 @@
+urlArgs: 'v=4'
+
 paths:
 
   jquery: '//code.jquery.com/jquery-1.11.0'
@@ -11,7 +13,23 @@ paths:
   # underscore: '//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.6.0/underscore-min'
 
   # Views - React components
-  MainView: 'components/Main'
+  MainComponent: 'components/Main'
+  HeaderComponent: 'components/Header'
+  ContentComponent: 'components/Content'
+  PhotosComponent: 'components/Photos'
+  FooterComponent: 'components/Footer'
+  
+  # React mixins
+  ReactBackboneMixin: 'mixins/ReactBackbone'
+  TelegraphMixin: 'mixins/Telegraph'
+
+  # Collections – Backbone
+  AlbumsCollection: 'collections/Albums'
+  PhotosCollection: 'collections/Photos'
+
+  # Models – Backbone
+  AlbumModel: 'models/Album'
+  PhotoModel: 'models/Photo'
 
 shim:
   backbone:

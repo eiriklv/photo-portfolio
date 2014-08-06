@@ -1,0 +1,87 @@
+@import url(http://fonts.googleapis.com/css?family=Nothing+You+Could+Do);
+
+.header{
+  background:white;
+  color:black;
+  height:130px;
+  overflow:hidden;
+  border-bottom:1px solid #ccc;
+  @include unselectable;
+  
+  .logo{
+    display:block;
+    width:170px;
+    height:130px;
+    border-right:1px solid #ccc;
+    float:left;
+    font-family: 'Nothing You Could Do', cursive;
+    font-size:36px;
+    text-align:center;
+    line-height:130px;
+    cursor:pointer;
+    @include textBorder(black);
+  }
+  
+  .menu{
+    float:left;
+    margin:0;
+    padding:30px 0 0 20px;
+    list-style:none;
+    
+    li{
+      display:block;
+      padding:2px 0;
+
+      a{
+        text-transform:uppercase;
+        text-decoration:none;
+        color:#888;
+        cursor:pointer;
+        @include animate();
+        
+        &:hover, &.active{
+          color:#000;
+        }
+      }
+    }
+  }
+
+  .albums{
+    float:right;
+    margin:0;
+    padding:0;
+    list-style:none;
+    @include animate();
+    @include opacity(0);
+    visibility:hidden;
+
+    &.visible{
+      @include opacity(1);
+      visibility:visible;
+    }
+    
+    li{
+      float:left;
+
+      a{
+        display:block;
+        padding:20px 20px 0 20px;
+        height:110px;
+        border-left:1px solid #ccc;
+        color:#888;
+        cursor:pointer;
+        text-transform:uppercase;
+        text-decoration:none;
+        @include animate();
+        
+        &:hover, &.active{
+          color:#000;
+        }
+        
+        &.active{
+          background:#f8f8f8;
+        }
+      }
+    }
+  }
+}
