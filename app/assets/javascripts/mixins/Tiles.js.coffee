@@ -13,10 +13,6 @@ define ['isotope'], (Isotope) ->
       unless @tiles?
         @tiles = new Isotope @refs.tiles.getDOMNode(),
           item_selector: '.tile'
-          # layoutMode: 'masonry'
-          # masonry:
-            # columnWidth: '.gridSizer'
-            # columnWidth: '25%'
 
     componentDidUpdate: ->
       if @tiles?
