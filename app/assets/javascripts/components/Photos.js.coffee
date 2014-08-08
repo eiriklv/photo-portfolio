@@ -81,8 +81,11 @@ define ['react', 'ReactBackboneMixin', 'TilesMixin'], (React, ReactBackboneMixin
         hover: @state.hover
         animate: @state.animate
       
+      imgURL = if window.devicePixelRatio > 1 then @props.thumb_x2_url
+      else @props.thumb_url
+      
       div {ref: 'me', className: "tile photo album_#{@props.album_id}", onMouseEnter: @onMouseEnter, onMouseLeave: @onMouseLeave},
-        img {ref: 'thumb', className: 'thumb', src: @props.thumb_x2_url}
+        img {ref: 'thumb', className: 'thumb', src: imgURL}
         div {className: overlayClasses},
           div {className: 'name'}, @props.name
           div {className: 'description'}, @props.description
