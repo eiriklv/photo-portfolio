@@ -11,6 +11,7 @@ define ['react', 'ReactBackboneMixin', 'TilesMixin', 'TelegraphMixin'], (React, 
     
     getDefaultProps: ->
       album_id: 0
+      arrangeTiles: null
     
     getInitialState: ->
       overlayPosition: 'left'
@@ -20,10 +21,11 @@ define ['react', 'ReactBackboneMixin', 'TilesMixin', 'TelegraphMixin'], (React, 
     
     componentDidMount: ->
       image = @refs.thumb.getDOMNode()
-      # image.onload = image.onerror = @thumbLoaded
+      image.onload = image.onerror = @thumbLoaded
     
-    # thumbLoaded: ->
-    #   @setState thumbLoaded: true
+    thumbLoaded: ->
+      # @setState thumbLoaded: true
+      @props.arrangeTiles() if @props.arrangeTiles?
     
     onMouseEnter: (e) ->
       @setState
@@ -115,8 +117,11 @@ define ['react', 'ReactBackboneMixin', 'TilesMixin', 'TelegraphMixin'], (React, 
         @tiles.arrange
           filter: (".album_#{albumId}" if albumId)
     
+    arrangeTiles: ->
+      @tiles.arrange()
+    
     render: ->
-      photos = @props.collection.map (model) ->
+      photos = @props.collection.map (model) =>
         new PhotoComponent
           key: model.get 'id'
           id: model.get 'id'
@@ -132,5 +137,6 @@ define ['react', 'ReactBackboneMixin', 'TilesMixin', 'TelegraphMixin'], (React, 
           focal_distance: model.get 'focal_distance'
           thumb_url: model.get 'thumb_url'
           thumb_x2_url: model.get 'thumb_x2_url'
+          arrangeTiles: @arrangeTiles
 
       div {ref: 'tiles', id: 'photos', className: 'photos'}, photos
