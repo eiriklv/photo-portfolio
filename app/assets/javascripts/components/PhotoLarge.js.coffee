@@ -3,8 +3,6 @@ define ['react', 'TelegraphMixin', 'ReactBackboneMixin'], (React, TelegraphMixin
   {div, img, i, span, br, strong} = React.DOM
   cx = React.addons.classSet
 
-  p = console.log.bind console
-
   React.createClass
     displayName: 'PhotoLargeComponent'
     mixins: [TelegraphMixin, ReactBackboneMixin]

@@ -2,8 +2,6 @@ define ['react', 'HeaderComponent', 'ContentComponent', 'FooterComponent', 'Tele
 
   {div} = React.DOM
 
-  p = console.log.bind console
-
   React.createClass
     displayName: 'MainComponent'
     mixins: [TelegraphMixin]

@@ -19,6 +19,8 @@ paths:
   ContentComponent: 'components/Content'
   PhotosComponent: 'components/Photos'
   PhotoLargeComponent: 'components/PhotoLarge'
+  AboutComponent: 'components/AboutComponent'
+  ContactComponent: 'components/ContactComponent'
   FooterComponent: 'components/Footer'
   
   # React mixins

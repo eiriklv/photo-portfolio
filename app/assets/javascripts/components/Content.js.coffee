@@ -1,8 +1,6 @@
-define ['react', 'PhotosComponent', 'PhotoLargeComponent', 'TelegraphMixin'], (React, PhotosComponent, PhotoLargeComponent, TelegraphMixin) ->
+define ['react', 'PhotosComponent', 'PhotoLargeComponent', 'TelegraphMixin', 'AboutComponent', 'ContactComponent'], (React, PhotosComponent, PhotoLargeComponent, TelegraphMixin, AboutComponent, ContactComponent) ->
 
   {div} = React.DOM
-
-  p = console.log.bind console
 
   React.createClass
     displayName: 'ContentComponent'
@@ -62,5 +60,7 @@ define ['react', 'PhotosComponent', 'PhotoLargeComponent', 'TelegraphMixin'], (R
             model: @props.photos.get @state.selectedPhotoId
             cams: @props.cams
             lenses: @props.lenses
+          when 'About' then new AboutComponent
+          when 'Contact' then new ContactComponent
           else null
       div {className: 'content'}, (activeContent if activeContent?)

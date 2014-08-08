@@ -1,0 +1,40 @@
+.contact{
+  width:50%;
+  min-width:300px;
+  max-width:500px;
+  margin:0 auto;
+  padding:2%;
+  padding-bottom:20px !important;
+  
+  h1{
+    font-weight:700;
+  }
+  
+  a{
+    display:block;
+    color:#bbb;
+    text-decoration:none;
+    margin:0 0 10px 0;
+    @include animate;
+
+    i{
+      font-size:40px;
+    }
+    
+    span{
+      font-size:20px;
+      padding:5px 0 0 20px;
+      @include inline-block;
+      vertical-align:top;
+    }
+
+    &:hover{
+      color:#fff;
+    }
+  }
+  
+  @media screen and (max-width: 640px) {
+    width:300px;
+    padding:0 10px;
+  }
+}
