@@ -1,7 +1,7 @@
 PhotoPortfolio::Application.routes.draw do
   resources :photos
 
-  resources :lens
+  resources :lenses
 
   resources :cams
 

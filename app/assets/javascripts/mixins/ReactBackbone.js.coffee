@@ -26,7 +26,7 @@ define [], ->
   # When the component mounts, start
   # listening to changes on the BB items
     componentDidMount: ->
-      for m in _.compact [@props.collection, @props.model]
+      for m in _.compact @listenFor()
         if m.on
           for eventName in ['remove', 'add', 'change', 'sync']
             m.on eventName, @forceUpdateBoundToSelf_
@@ -35,5 +35,13 @@ define [], ->
 
   #... and when it leaves, stop doing that
     componentWillUnmount: ->
-      for m in _.compact [@props.collection, @props.model]
+      for m in _.compact @listenFor()
         m.off null, @forceUpdateBoundToSelf_ # Null as first arg. removes all handlers
+
+    listenForCache: null
+    listenFor: ->
+      return @listenForCache if @listenForCache?
+      listenFor = [@props.collection, @props.model]
+      if @extraBackboneCollections?
+        listenFor.push(@props[prop]) for prop in @extraBackboneCollections
+      @listenForCache = listenFor

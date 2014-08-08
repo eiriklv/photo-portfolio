@@ -9,7 +9,9 @@ define ['react', 'HeaderComponent', 'ContentComponent', 'FooterComponent', 'Tele
     mixins: [TelegraphMixin]
 
     getDefaultProps: ->
-      albums: []
+      albums: {}
+      cams: {}
+      lenses: {}
 
     componentWillMount: ->
       @on 'menu:change', (e) =>
@@ -19,10 +21,12 @@ define ['react', 'HeaderComponent', 'ContentComponent', 'FooterComponent', 'Tele
         @refs.content.filterPhotosByAlbumId e.id
 
     render: ->
-      div {},
+      div {className: 'wrapper'},
         HeaderComponent
           albums: @props.albums
         ContentComponent
           ref: 'content'
           photos: @props.photos
+          cams: @props.cams
+          lenses: @props.lenses
         FooterComponent()

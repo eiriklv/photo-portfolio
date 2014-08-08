@@ -1,4 +1,4 @@
-define ['jquery', 'react', 'MainComponent', 'AlbumsCollection', 'PhotosCollection'], ($, React, MainComponent, AlbumsCollection, PhotosCollection) ->
+define ['jquery', 'react', 'MainComponent', 'AlbumsCollection', 'PhotosCollection', 'CamsCollection', 'LensesCollection'], ($, React, MainComponent, AlbumsCollection, PhotosCollection, CamsCollection, LensesCollection) ->
   
   class Frontend
     constructor: ->
@@ -14,6 +14,8 @@ define ['jquery', 'react', 'MainComponent', 'AlbumsCollection', 'PhotosCollectio
       mainComponent = MainComponent
         albums: new AlbumsCollection [], {}
         photos: new PhotosCollection [], {}
+        cams: new CamsCollection [], {}
+        lenses: new LensesCollection [], {}
       
       reactRoot = document.getElementById 'reactRoot'
       React.renderComponent mainComponent, reactRoot

@@ -1,4 +1,4 @@
-define ['react', 'ReactBackboneMixin', 'TilesMixin'], (React, ReactBackboneMixin, TilesMixin) ->
+define ['react', 'ReactBackboneMixin', 'TilesMixin', 'TelegraphMixin'], (React, ReactBackboneMixin, TilesMixin, TelegraphMixin) ->
 
   {div, img} = React.DOM
   cx = React.addons.classSet
@@ -7,6 +7,7 @@ define ['react', 'ReactBackboneMixin', 'TilesMixin'], (React, ReactBackboneMixin
 
   PhotoComponent = React.createClass
     displayName: 'PhotoComponent'
+    mixins: [TelegraphMixin]
     
     getDefaultProps: ->
       album_id: 0
@@ -43,6 +44,9 @@ define ['react', 'ReactBackboneMixin', 'TilesMixin'], (React, ReactBackboneMixin
           hover: false
           animate: true
       , 10
+    
+    onClick: (e) ->
+      @upstream 'photo:change', {id: @props.id}
     
     detectSide: (rect, mouseX, mouseY) ->
       distance =
@@ -84,23 +88,27 @@ define ['react', 'ReactBackboneMixin', 'TilesMixin'], (React, ReactBackboneMixin
       imgURL = if window.devicePixelRatio > 1 then @props.thumb_x2_url
       else @props.thumb_url
       
-      div {ref: 'me', className: "tile photo album_#{@props.album_id}", onMouseEnter: @onMouseEnter, onMouseLeave: @onMouseLeave},
+      div {ref: 'me', className: "tile photo album_#{@props.album_id}", onMouseEnter: @onMouseEnter, onMouseLeave: @onMouseLeave, onClick: @onClick},
         img {ref: 'thumb', className: 'thumb', src: imgURL}
         div {className: overlayClasses},
           div {className: 'name'}, @props.name
           div {className: 'description'}, @props.description
 
+
   React.createClass
     displayName: 'PhotosComponent'
-    mixins: [ReactBackboneMixin, TilesMixin]
-    
-    masonry: null
+    mixins: [ReactBackboneMixin, TilesMixin, TelegraphMixin]
     
     getDefaultProps: ->
       collection: []
+      defaultAlbumId: null
 
     componentWillMount: ->
       @props.collection.fetch()
+
+    componentDidMount: ->
+      if @props.defaultAlbumId
+        @filterPhotosByAlbumId @props.defaultAlbumId
     
     filterPhotosByAlbumId: (albumId) ->
       if @tiles?

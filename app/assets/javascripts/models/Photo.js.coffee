@@ -12,3 +12,8 @@ define ['backbone'], (Backbone) ->
       aperture: null
       exposure: null
       focal_distance: null
+      thumb_url: null
+      thumb_x2_url: null
+      normal: null
+      large: null
+      xlarge: null

@@ -1,4 +1,4 @@
-urlArgs: 'v=13'
+urlArgs: 'v=16'
 
 paths:
 
@@ -18,6 +18,7 @@ paths:
   HeaderComponent: 'components/Header'
   ContentComponent: 'components/Content'
   PhotosComponent: 'components/Photos'
+  PhotoLargeComponent: 'components/PhotoLarge'
   FooterComponent: 'components/Footer'
   
   # React mixins
@@ -28,10 +29,14 @@ paths:
   # Collections – Backbone
   AlbumsCollection: 'collections/Albums'
   PhotosCollection: 'collections/Photos'
+  CamsCollection: 'collections/Cams'
+  LensesCollection: 'collections/Lenses'
 
   # Models – Backbone
   AlbumModel: 'models/Album'
   PhotoModel: 'models/Photo'
+  CamModel: 'models/Cam'
+  LensModel: 'models/Lens'
 
 shim:
   backbone:
