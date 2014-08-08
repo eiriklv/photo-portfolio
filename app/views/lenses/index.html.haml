@@ -1,4 +1,4 @@
-%h1 Listing lens
+%h1 Listing lenses
 
 %table
   %tr
@@ -7,13 +7,13 @@
     %th
     %th
 
-  - @lens.each do |len|
+  - @lenses.each do |lens|
     %tr
-      %td= len.name
-      %td= link_to 'Show', len
-      %td= link_to 'Edit', edit_len_path(len)
-      %td= link_to 'Destroy', len, :method => :delete, :data => { :confirm => 'Are you sure?' }
+      %td= lens.name
+      %td= link_to 'Show', lens
+      %td= link_to 'Edit', edit_len_path(lens)
+      %td= link_to 'Destroy', lens, :method => :delete, :data => { :confirm => 'Are you sure?' }
 
 %br
 
-= link_to 'New Len', new_len_path
+= link_to 'New Lens', new_len_path

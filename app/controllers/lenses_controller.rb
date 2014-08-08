@@ -1,6 +1,8 @@
 class LensesController < ApplicationController
   before_action :set_lens, only: [:show, :edit, :update, :destroy]
 
+  layout 'admin'
+
   # GET /lenses
   # GET /lenses.json
   def index

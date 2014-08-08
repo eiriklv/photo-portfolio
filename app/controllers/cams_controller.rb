@@ -1,6 +1,8 @@
 class CamsController < ApplicationController
   before_action :set_cam, only: [:show, :edit, :update, :destroy]
 
+  layout 'admin'
+
   # GET /cams
   # GET /cams.json
   def index

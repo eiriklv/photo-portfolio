@@ -1,9 +1,9 @@
-= form_for @len do |f|
-  - if @len.errors.any?
+= form_for @lens do |f|
+  - if @lens.errors.any?
     #error_explanation
-      %h2= "#{pluralize(@len.errors.count, "error")} prohibited this len from being saved:"
+      %h2= "#{pluralize(@lens.errors.count, "error")} prohibited this len from being saved:"
       %ul
-        - @len.errors.full_messages.each do |msg|
+        - @lens.errors.full_messages.each do |msg|
           %li= msg
 
   .field

@@ -1,24 +1,26 @@
-define ['jquery', 'react', 'MainComponent', 'AlbumsCollection', 'PhotosCollection', 'CamsCollection', 'LensesCollection', 'BackboneRouter'], ($, React, MainComponent, AlbumsCollection, PhotosCollection, CamsCollection, LensesCollection, BackboneRouter) ->
-  
-  class Frontend
-    constructor: ->
-      
-        $('link[rel="stylesheet"]').each ->
-          $me = $(this)
-          src = $me.attr 'href'
-          setInterval ->
-            newSrc = "#{src}&r=#{Math.random()}"
-            $me.attr 'href', newSrc
-          , 3000
+# This is a manifest file that'll be compiled into application.js, which will include all the files
+# listed below.
+#
+# Any JavaScript/Coffee file within this directory, lib/assets/javascripts, vendor/assets/javascripts,
+# or vendor/assets/javascripts of plugins, if any, can be referenced here using a relative path.
+#
+# It's not advisable to add code directly here, but if you do, it'll appear at the bottom of the
+# compiled file.
+#
+# Read Sprockets README (https:#github.com/sstephenson/sprockets#sprockets-directives) for details
+# about supported directives.
+#
+# require jquery
+# require jquery_ujs
+# require turbolinks
+# require_tree .
 
-      window.Router = new BackboneRouter
-      window.Router.startListening()
-      
-      mainComponent = MainComponent
-        albums: new AlbumsCollection [], {}
-        photos: new PhotosCollection [], {}
-        cams: new CamsCollection [], {}
-        lenses: new LensesCollection [], {}
-      
-      reactRoot = document.getElementById 'reactRoot'
-      React.renderComponent mainComponent, reactRoot
+console.clear()
+
+require ['jquery', 'frontendConstructor'], ($, Frontend) ->
+
+  $ ->
+    window.Frontend = new Frontend()
+    # Backbone.history.start
+    #   pushState: true
+    # window.App.start()

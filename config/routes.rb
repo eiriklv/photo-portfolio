@@ -1,20 +1,26 @@
 PhotoPortfolio::Application.routes.draw do
-  resources :photos
-  resources :lenses
-  resources :cams
-  resources :albums
+  resources :photos, path: 'admin/photos'
+  resources :lenses, path: 'admin/lenses'
+  resources :lens, path: 'admin/lenses'
+  resources :cams, path: 'admin/cams'
+  resources :albums, path: 'admin/albums'
 
-  get 'photo' => 'application#index'
-  get 'photo/:album_id' => 'application#index'
-  get 'photo/:album_id/:photo_id' => 'application#index'
-  get 'about' => 'application#index'
-  get 'contact' => 'application#index'
+  get 'api/cams' => 'api#cams'
+  get 'api/lenses' => 'api#lenses'
+  get 'api/photos' => 'api#photos'
+  get 'api/albums' => 'api#albums'
+
+  get 'photo' => 'application#frontend'
+  get 'photo/:album_id' => 'application#frontend'
+  get 'photo/:album_id/:photo_id' => 'application#frontend'
+  get 'about' => 'application#frontend'
+  get 'contact' => 'application#frontend'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
-  root 'application#index'
+  root 'application#frontend'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

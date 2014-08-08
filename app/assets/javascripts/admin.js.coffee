@@ -10,17 +10,6 @@
 # Read Sprockets README (https:#github.com/sstephenson/sprockets#sprockets-directives) for details
 # about supported directives.
 #
-# require jquery
-# require jquery_ujs
-# require turbolinks
-# require_tree .
-
-console.clear()
-
-require ['jquery', 'frontend'], ($, Frontend) ->
-
-  $ ->
-    window.Frontend = new Frontend()
-    # Backbone.history.start
-    #   pushState: true
-    # window.App.start()
+#= require jquery
+#= require jquery_ujs
+#= require turbolinks
