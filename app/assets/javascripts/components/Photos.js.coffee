@@ -8,6 +8,9 @@ define ['react', 'ReactBackboneMixin', 'TilesMixin'], (React, ReactBackboneMixin
   PhotoComponent = React.createClass
     displayName: 'PhotoComponent'
     
+    getDefaultProps: ->
+      album_id: 0
+    
     getInitialState: ->
       overlayPosition: 'left'
       hover: false
@@ -78,7 +81,7 @@ define ['react', 'ReactBackboneMixin', 'TilesMixin'], (React, ReactBackboneMixin
         hover: @state.hover
         animate: @state.animate
       
-      div {ref: 'me', className: 'tile photo', onMouseEnter: @onMouseEnter, onMouseLeave: @onMouseLeave},
+      div {ref: 'me', className: "tile photo album_#{@props.album_id}", onMouseEnter: @onMouseEnter, onMouseLeave: @onMouseLeave},
         img {ref: 'thumb', className: 'thumb', src: @props.thumb_x2_url}
         div {className: overlayClasses},
           div {className: 'name'}, @props.name
@@ -96,7 +99,10 @@ define ['react', 'ReactBackboneMixin', 'TilesMixin'], (React, ReactBackboneMixin
     componentWillMount: ->
       @props.collection.fetch()
     
-    # getInitialState: ->
+    filterPhotosByAlbumId: (albumId) ->
+      if @tiles?
+        @tiles.arrange
+          filter: (".album_#{albumId}" if albumId)
     
     render: ->
       photos = @props.collection.map (model) ->
@@ -116,6 +122,4 @@ define ['react', 'ReactBackboneMixin', 'TilesMixin'], (React, ReactBackboneMixin
           thumb_url: model.get 'thumb_url'
           thumb_x2_url: model.get 'thumb_x2_url'
 
-      div {ref: 'tiles', id: 'photos', className: 'photos'},
-        # div {className: 'gridSizer'}
-        photos
+      div {ref: 'tiles', id: 'photos', className: 'photos'}, photos

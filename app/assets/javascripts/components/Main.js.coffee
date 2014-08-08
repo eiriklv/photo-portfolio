@@ -15,6 +15,9 @@ define ['react', 'HeaderComponent', 'ContentComponent', 'FooterComponent', 'Tele
       @on 'menu:change', (e) =>
         @refs.content.setState activeContent: e.name
 
+      @on 'albums:change', (e) =>
+        @refs.content.filterPhotosByAlbumId e.id
+
     render: ->
       div {},
         HeaderComponent
