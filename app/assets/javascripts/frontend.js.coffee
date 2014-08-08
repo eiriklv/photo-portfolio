@@ -1,4 +1,4 @@
-define ['jquery', 'react', 'MainComponent', 'AlbumsCollection', 'PhotosCollection', 'CamsCollection', 'LensesCollection'], ($, React, MainComponent, AlbumsCollection, PhotosCollection, CamsCollection, LensesCollection) ->
+define ['jquery', 'react', 'MainComponent', 'AlbumsCollection', 'PhotosCollection', 'CamsCollection', 'LensesCollection', 'BackboneRouter'], ($, React, MainComponent, AlbumsCollection, PhotosCollection, CamsCollection, LensesCollection, BackboneRouter) ->
   
   class Frontend
     constructor: ->
@@ -10,6 +10,9 @@ define ['jquery', 'react', 'MainComponent', 'AlbumsCollection', 'PhotosCollectio
             newSrc = "#{src}&r=#{Math.random()}"
             $me.attr 'href', newSrc
           , 3000
+
+      window.Router = new BackboneRouter
+      window.Router.startListening()
       
       mainComponent = MainComponent
         albums: new AlbumsCollection [], {}

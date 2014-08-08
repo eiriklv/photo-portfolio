@@ -28,6 +28,9 @@ paths:
   TelegraphMixin: 'mixins/Telegraph'
   TilesMixin: 'mixins/Tiles'
 
+  # Backbone router
+  BackboneRouter: 'backbone/Router'
+
   # Collections – Backbone
   AlbumsCollection: 'collections/Albums'
   PhotosCollection: 'collections/Photos'

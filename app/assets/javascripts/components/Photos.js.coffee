@@ -20,6 +20,10 @@ define ['react', 'ReactBackboneMixin', 'TilesMixin', 'TelegraphMixin'], (React, 
     componentDidMount: ->
       image = @refs.thumb.getDOMNode()
       image.onload = image.onerror = @thumbLoaded
+
+      if window.Router.navigation.photoId? and parseInt(@props.id) is parseInt(window.Router.navigation.photoId)
+        window.Router.navigation.photoId = null
+        @onClick()
     
     thumbLoaded: ->
       # @setState thumbLoaded: true
@@ -47,6 +51,7 @@ define ['react', 'ReactBackboneMixin', 'TilesMixin', 'TelegraphMixin'], (React, 
     
     onClick: (e) ->
       @upstream 'photo:change', {id: @props.id}
+      window.Router.navigate "photo/#{@props.album_id or 'all'}/#{@props.id}"
     
     detectSide: (rect, mouseX, mouseY) ->
       distance =

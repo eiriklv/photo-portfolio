@@ -1,11 +1,14 @@
 PhotoPortfolio::Application.routes.draw do
   resources :photos
-
   resources :lenses
-
   resources :cams
-
   resources :albums
+
+  get 'photo' => 'application#index'
+  get 'photo/:album_id' => 'application#index'
+  get 'photo/:album_id/:photo_id' => 'application#index'
+  get 'about' => 'application#index'
+  get 'contact' => 'application#index'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

@@ -52,6 +52,7 @@ define ['react', 'TelegraphMixin', 'ReactBackboneMixin'], (React, TelegraphMixin
     
     onCloseButtonClick: ->
       @upstream 'photoLarge:close'
+      window.Router.navigate "photo/#{@props.model.get('album_id') or 'all'}"
 
     windowSize: ->
       ret =

@@ -11,11 +11,13 @@ define ['react', 'ReactBackboneMixin', 'TelegraphMixin'], (React, ReactBackboneM
       active: false
 
     componentDidMount: ->
-      if @props.id is 0
+      if window.Router.navigation.albumId? and (parseInt(@props.id) is parseInt(window.Router.navigation.albumId) or (@props.id is 0 and window.Router.navigation.albumId is 'all'))
+        window.Router.navigation.albumId = null
         @clickHandler()
 
     clickHandler: ->
       @upstream 'albums:change', {id: @props.id}
+      window.Router.navigate "photo/#{@props.id or 'all'}"
 
     clickCallback: (selectedId) ->
       @setState active: @props.id is selectedId
@@ -69,16 +71,19 @@ define ['react', 'ReactBackboneMixin', 'TelegraphMixin'], (React, ReactBackboneM
     
     getDefaultProps: ->
       name: ''
+      url: ''
     
     getInitialState: ->
       active: false
 
     componentDidMount: ->
-      if @props.name is 'Photos'
+      if window.Router.navigation.menuName? and @props.url is window.Router.navigation.menuName
+        window.Router.navigation.menuName = null
         @clickHandler()
 
     clickHandler: ->
       @upstream 'menu:change', {name: @props.name}
+      window.Router.navigate @props.url
 
     clickCallback: (selectedName) ->
       @setState active: @props.name is selectedName
@@ -109,6 +114,7 @@ define ['react', 'ReactBackboneMixin', 'TelegraphMixin'], (React, ReactBackboneM
 
     onLogoClick: ->
       @upstream 'menu:change', {name: 'Photos'}
+      window.Router.navigate 'photo'
 
     render: ->
       div {className: 'header'},
@@ -117,12 +123,15 @@ define ['react', 'ReactBackboneMixin', 'TelegraphMixin'], (React, ReactBackboneM
           MenuItemComponent
             ref: 'menu_1'
             name: 'Photos'
+            url: 'photo'
           MenuItemComponent
             ref: 'menu_2'
             name: 'About'
+            url: 'about'
           MenuItemComponent
             ref: 'menu_3'
             name: 'Contact'
+            url: 'contact'
         AlbumsComponent
           collection: @props.albums
           visible: @state.activePage is 'Photos'

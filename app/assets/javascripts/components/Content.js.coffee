@@ -34,14 +34,18 @@ define ['react', 'PhotosComponent', 'PhotoLargeComponent', 'TelegraphMixin', 'Ab
         photos = photos.byAlbumId @albumId if @albumId
         newIndex = photos.indexOf(photos.get(@state.selectedPhotoId)) - 1
         newIndex = photos.length - 1 if newIndex < 0
-        @setState selectedPhotoId: photos.at(newIndex).get('id')
+        newModel = photos.at(newIndex)
+        @setState selectedPhotoId: newModel.get('id')
+        window.Router.navigate "photo/#{newModel.get('album_id') or 'all'}/#{newModel.get('id')}"
 
       @on 'photoLarge:next', =>
         photos = @props.photos
         photos = photos.byAlbumId @albumId if @albumId
         newIndex = photos.indexOf(photos.get(@state.selectedPhotoId)) + 1
         newIndex = 0 if newIndex >= photos.length
-        @setState selectedPhotoId: photos.at(newIndex).get('id')
+        newModel = photos.at(newIndex)
+        @setState selectedPhotoId: newModel.get('id')
+        window.Router.navigate "photo/#{newModel.get('album_id') or 'all'}/#{newModel.get('id')}"
 
     filterPhotosByAlbumId: (albumId) ->
       if @refs? and @refs.photos?
