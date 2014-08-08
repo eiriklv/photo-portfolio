@@ -1,4 +1,4 @@
-define ['react', 'ReactBackboneMixin'], (React, ReactBackboneMixin) ->
+define ['react', 'ReactBackboneMixin', 'TilesMixin'], (React, ReactBackboneMixin, TilesMixin) ->
 
   {div, img} = React.DOM
   cx = React.addons.classSet
@@ -12,14 +12,14 @@ define ['react', 'ReactBackboneMixin'], (React, ReactBackboneMixin) ->
       overlayPosition: 'left'
       hover: false
       animate: false
-      thumbLoaded: false
+      # thumbLoaded: false
     
     componentDidMount: ->
       image = @refs.thumb.getDOMNode()
-      image.onload = image.onerror = @thumbLoaded
+      # image.onload = image.onerror = @thumbLoaded
     
-    thumbLoaded: ->
-      @setState thumbLoaded: true
+    # thumbLoaded: ->
+    #   @setState thumbLoaded: true
     
     onMouseEnter: (e) ->
       @setState
@@ -78,11 +78,7 @@ define ['react', 'ReactBackboneMixin'], (React, ReactBackboneMixin) ->
         hover: @state.hover
         animate: @state.animate
       
-      photoClasses = cx
-        photo: true
-        visible: @state.thumbLoaded
-      
-      div {ref: 'me', className: photoClasses, onMouseEnter: @onMouseEnter, onMouseLeave: @onMouseLeave},
+      div {ref: 'me', className: 'tile photo', onMouseEnter: @onMouseEnter, onMouseLeave: @onMouseLeave},
         img {ref: 'thumb', className: 'thumb', src: @props.thumb_x2_url}
         div {className: overlayClasses},
           div {className: 'name'}, @props.name
@@ -90,7 +86,9 @@ define ['react', 'ReactBackboneMixin'], (React, ReactBackboneMixin) ->
 
   React.createClass
     displayName: 'PhotosComponent'
-    mixins: [ReactBackboneMixin]
+    mixins: [ReactBackboneMixin, TilesMixin]
+    
+    masonry: null
     
     getDefaultProps: ->
       collection: []
@@ -118,4 +116,6 @@ define ['react', 'ReactBackboneMixin'], (React, ReactBackboneMixin) ->
           thumb_url: model.get 'thumb_url'
           thumb_x2_url: model.get 'thumb_x2_url'
 
-      div {className: 'photos'}, photos
+      div {ref: 'tiles', id: 'photos', className: 'photos'},
+        # div {className: 'gridSizer'}
+        photos

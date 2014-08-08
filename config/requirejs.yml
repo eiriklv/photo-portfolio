@@ -1,8 +1,9 @@
-urlArgs: 'v=4'
+urlArgs: 'v=10'
 
 paths:
 
   jquery: '//code.jquery.com/jquery-1.11.0'
+  isotope: 'libs/isotope.pkgd'
   react: '//cdnjs.cloudflare.com/ajax/libs/react/0.11.0/react-with-addons'
   backbone: '//cdnjs.cloudflare.com/ajax/libs/backbone.js/1.1.2/backbone'
   underscore: '//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.6.0/underscore'
@@ -22,6 +23,7 @@ paths:
   # React mixins
   ReactBackboneMixin: 'mixins/ReactBackbone'
   TelegraphMixin: 'mixins/Telegraph'
+  TilesMixin: 'mixins/Tiles'
 
   # Collections – Backbone
   AlbumsCollection: 'collections/Albums'
@@ -34,7 +36,13 @@ paths:
 shim:
   backbone:
     deps: ['jquery', 'underscore']
-    exports: 'Blackbone'
+    exports: 'Backbone'
+  isotope:
+    deps: ['jquery']
+    exports: 'Isotope'
+  masonry:
+    deps: ['jquery']
+    exports: 'Masonry'
   jquery:
     exports: '$'
   underscore:

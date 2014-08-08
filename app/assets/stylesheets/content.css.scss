@@ -1,21 +1,24 @@
 .content{
   
   .photos{
+    .gridSizer{
+      display:none;
+      width:25%;
+    }
     .photo{
-      float:left;
-      width:320px;
-      height:320px;
-      position:relative;
+      width:25%;
+      height:0;
+      padding-bottom:25%;
       overflow:hidden;
       cursor:pointer;
-      @include opacity(0);
-      visibility:hidden;
-      @include animate;
+//      @include opacity(0);
+//      visibility:hidden;
+//      @include animate;
       
-      &.visible{
-        @include opacity(1);
-        visibility:visible;
-      }
+//      &.visible{
+//        @include opacity(1);
+//        visibility:visible;
+//      }
 
       .thumb{
         width:100%;
@@ -87,6 +90,61 @@
                -o-transition-timing-function: cubic-bezier(0.250, 0.460, 0.415, 0.985); 
                   transition-timing-function: cubic-bezier(0.250, 0.460, 0.415, 0.985); /* custom */
         }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 1600px) {
+  .content{
+    .photos{
+      .photo{
+        width:20%;
+        padding-bottom:20%;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 1280px) {
+  .content{
+    .photos{
+      .photo{
+        width:25%;
+        padding-bottom:25%;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 960px) {
+  .content{
+    .photos{
+      .photo{
+        width:33.3333%;
+        padding-bottom:33.3333%;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 640px) {
+  .content{
+    .photos{
+      .photo{
+        width:50%;
+        padding-bottom:50%;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .content{
+    .photos{
+      .photo{
+        width:100%;
+        padding-bottom:100%;
       }
     }
   }
