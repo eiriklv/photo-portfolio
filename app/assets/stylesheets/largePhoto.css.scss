@@ -165,6 +165,19 @@
       padding:0 2%;
     }
   }
+
+  .photosContainer, .about, .techSpec{
+    @include opacity(0);
+    visibility:hidden;
+    @include animate;
+  }
+  
+  &.visible{
+    .photosContainer, .about, .techSpec{
+      @include opacity(1);
+      visibility:visible !important;
+    }
+  }
   
   @media screen and (max-width: 640px) {
     .about{

@@ -8,6 +8,7 @@ define ['react', 'TelegraphMixin', 'ReactBackboneMixin'], (React, TelegraphMixin
     mixins: [TelegraphMixin, ReactBackboneMixin]
 
     extraBackboneCollections: ['cams', 'lenses']
+    firstLoad: false
     
     getDefaultProps: ->
       model: {}
@@ -17,6 +18,7 @@ define ['react', 'TelegraphMixin', 'ReactBackboneMixin'], (React, TelegraphMixin
     getInitialState: ->
       loading: false
       imgURL: null
+      visible: false
 
     componentWillMount: ->
       @onWindowResize()
@@ -26,6 +28,7 @@ define ['react', 'TelegraphMixin', 'ReactBackboneMixin'], (React, TelegraphMixin
     componentDidMount: ->
       if window.addEventListener?
         window.addEventListener 'resize', @onWindowResize
+      @firstLoad = true
     
     componentWillUnmount: ->
       if window.removeEventListener?
@@ -49,10 +52,17 @@ define ['react', 'TelegraphMixin', 'ReactBackboneMixin'], (React, TelegraphMixin
     
     onLoad: ->
       @setState loading: false
+      if @firstLoad
+        @firstLoad = false
+        setTimeout =>
+          @setState visible: true
     
     onCloseButtonClick: ->
-      @upstream 'photoLarge:close'
-      window.Router.navigate "photo/#{@props.model.get('album_id') or 'all'}"
+      @setState visible: false
+      setTimeout =>
+        @upstream 'photoLarge:close'
+        window.Router.navigate "photo/#{@props.model.get('album_id') or 'all'}"
+      , 300
 
     windowSize: ->
       ret =
@@ -94,17 +104,33 @@ define ['react', 'TelegraphMixin', 'ReactBackboneMixin'], (React, TelegraphMixin
       ''
     
     onPrevClick: ->
-      @upstream 'photoLarge:prev'
+      @setState visible: false
+      setTimeout =>
+        @firstLoad = true
+        @upstream 'photoLarge:prev'
+        setTimeout =>
+          @setState visible: true
+      , 300
 
     onNextClick: ->
-      @upstream 'photoLarge:next'
+      @setState visible: false
+      setTimeout =>
+        @firstLoad = true
+        @upstream 'photoLarge:next'
+        setTimeout =>
+          @setState visible: true
+      , 300
     
     render: ->
+      classes = cx
+        largePhoto: true
+        visible: @state.visible
+      
       loaderClasses = cx
         loader: true
         visible: @state.loading
       
-      div {className: 'largePhoto'},
+      div {className: classes},
         div {className: 'photosContainer'},
           img {className: 'photo', src: @state.imgURL, onLoad: @onLoad}
         div {className: loaderClasses}
