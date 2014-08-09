@@ -129,7 +129,7 @@ define ['react', 'TelegraphMixin', 'ReactBackboneMixin'], (React, TelegraphMixin
         # description: @props.model.get 'description'
 
         method: 'share'
-        link: window.location.href
+        href: window.location.href
         display: 'iframe'
 
       , (response) ->

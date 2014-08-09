@@ -10,9 +10,7 @@ define ['jquery', 'react', 'MainComponent', 'AlbumsCollection', 'PhotosCollectio
           appId: '466800570010174',
           xfbml: true,
           version: 'v2.0'
-        
         FB.getLoginStatus ->
-          console.log response.status
 
       fbFN = (d, s, id) ->
         fjs = d.getElementsByTagName(s)[0]
