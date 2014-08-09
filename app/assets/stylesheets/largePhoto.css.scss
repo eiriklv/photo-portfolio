@@ -150,19 +150,26 @@
     @include text-shadow(black, 10px);
     @include opacity(.5);
     @include animate;
-    
-    &:hover{
-      @include opacity(.9);
-    }
+    padding:0 2%;
     
     &.prev{
       left:0;
-      padding:0 2%;
+
+      &:hover{
+        padding:0 3% 0 1%;
+      }
     }
   
     &.next{
       right:0;
-      padding:0 2%;
+
+      &:hover{
+        padding:0 1% 0 3%;
+      }
+    }
+
+    &:hover{
+      @include opacity(.9);
     }
   }
 
