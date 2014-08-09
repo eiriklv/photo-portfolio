@@ -1,0 +1,7 @@
+git stash
+git pull
+git checkout origin/master
+git stash pop
+RAILS_ENV=production bundle exec rake assets:precompile
+kill $(ps aux | grep 'ruby' | grep '3333' | awk '{print $2}')
+RAILS_ENV=production rails server -p 3333

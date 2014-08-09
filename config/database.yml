@@ -27,5 +27,5 @@ production:
   reconnect: false
   database: photos
   pool: 5
-  username: root
-  password: karen
+  username: photos
+  password: czAuL32hpdRSXHZR
