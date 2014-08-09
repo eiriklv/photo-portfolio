@@ -22,4 +22,4 @@ define [], () ->
         # p "reachGoal: #{goalID}"
         @counter.reachGoal goalID
 
-  window.YandexCounter = new YandexCounter
+  window.YandexCounter = new YandexCounter 25825595
