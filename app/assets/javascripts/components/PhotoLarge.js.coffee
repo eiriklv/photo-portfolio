@@ -124,6 +124,7 @@ define ['react', 'TelegraphMixin', 'ReactBackboneMixin'], (React, TelegraphMixin
     onFacebookClick: ->
       FB.ui
         method: 'share'
+        href: window.location
         display: 'iframe'
       , (response) ->
         if console? and console.log?
