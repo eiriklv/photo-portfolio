@@ -11,8 +11,8 @@ class CamsController < ApplicationController
 
   # GET /cams/1
   # GET /cams/1.json
-  def show
-  end
+  # def show
+  # end
 
   # GET /cams/new
   def new
@@ -30,7 +30,7 @@ class CamsController < ApplicationController
 
     respond_to do |format|
       if @cam.save
-        format.html { redirect_to @cam, notice: 'Cam was successfully created.' }
+        format.html { redirect_to cams_url, notice: 'Cam was successfully created.' }
         format.json { render action: 'show', status: :created, location: @cam }
       else
         format.html { render action: 'new' }
@@ -44,7 +44,7 @@ class CamsController < ApplicationController
   def update
     respond_to do |format|
       if @cam.update(cam_params)
-        format.html { redirect_to @cam, notice: 'Cam was successfully updated.' }
+        format.html { redirect_to cams_url, notice: 'Cam was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }

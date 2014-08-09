@@ -4,6 +4,7 @@ class Photo < ActiveRecord::Base
   belongs_to :lens
 
   has_attached_file :image, styles: {
+    preview: '70x70>',
     thumb: '320x320#',
     thumb_retina: '640x640#',
     normal: Proc.new { |instance| instance.resize_image('normal') }, # 1280x800
@@ -20,7 +21,9 @@ class Photo < ActiveRecord::Base
 
   default_scope order 'position desc'
   
-  paginates_per 10
+  after_post_process :load_exif
+  
+  # paginates_per 10
   
   def thumb_url
     self.image.url :thumb
@@ -61,6 +64,32 @@ class Photo < ActiveRecord::Base
       else
         '1920x2880#'
       end
+    end
+  end
+
+  def self.sort(ids)
+    transaction do
+      ids.each_with_index do |id, index|
+        index = ids.count - index
+        find(id).update_attribute(:position, index + 1)
+      end
+    end
+  end
+
+
+  def load_exif
+    exif = EXIFR::JPEG.new(image.queued_for_write[:original].path)
+    return if exif.nil? or not exif.exif?
+    begin
+      p exif.model
+      p exif
+      self.exposure = exif.exposure_time.to_s.gsub /\/1$/, ''
+      self.aperture = exif.f_number.to_f
+      self.focal_distance = exif.focal_length.to_i
+      self.iso = exif.iso_speed_ratings.to_i
+      self.date = exif.date_time.to_date
+    rescue
+      false
     end
   end
 

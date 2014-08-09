@@ -6,4 +6,8 @@
     = javascript_include_tag 'admin', 'data-turbolinks-track' => false
     = csrf_meta_tags
   %body
-    = yield
+    = render partial: 'admin/top_menu' if signed_in?
+    .container
+      %p.notice= notice
+      %p.alert= alert
+      = yield

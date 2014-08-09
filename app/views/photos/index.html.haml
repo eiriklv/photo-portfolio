@@ -1,37 +1,52 @@
 %h1 Listing photos
 
-%table
-  %tr
-    %th Name
-    %th Description
-    %th Position
-    %th Views
-    %th Cam
-    %th Lens
-    %th Iso
-    %th Aperture
-    %th Exposure
-    %th Focal distance
-    %th
-    %th
-    %th
-
+%table.table{'data-sort-url' => sort_photos_path}
   - @photos.each do |photo|
-    %tr
-      %td= photo.name
-      %td= photo.description
-      %td= photo.position
-      %td= photo.views
-      %td= photo.cam
-      %td= photo.lens
-      %td= photo.iso
-      %td= photo.aperture
-      %td= photo.exposure
-      %td= photo.focal_distance
-      %td= link_to 'Show', photo
-      %td= link_to 'Edit', edit_photo_path(photo)
-      %td= link_to 'Destroy', photo, :method => :delete, :data => { :confirm => 'Are you sure?' }
+    %tr{'data-id' => photo.id}
+      %td.ncol
+        - if photo.name.present?
+          = photo.name
+        - else
+          %span.label.label-warning No name
+      / %td= photo.description
+      / %td= photo.views
+      %td
+        - if photo.album.present?
+          = photo.album.name
+        - else
+          %span.label.label-warning No album
+      %td= photo.cam.name if photo.cam.present?
+      %td= photo.lens.name if photo.lens.present?
+      %td
+        - if photo.iso != 0
+          = "ISO #{photo.iso}"
+        - else
+          %span.label.label-warning ISO 0
+      %td
+        - if photo.aperture != 0
+          = "f#{photo.aperture}"
+        - else
+          %span.label.label-warning f0
+      %td
+        - if photo.exposure.present?
+          = "#{photo.exposure}s"
+        - else
+          %span.label.label-warning 0s
+      %td
+        - if photo.focal_distance != 0
+          = "#{photo.focal_distance}mm"
+        - else
+          %span.label.label-warning 0mm
+      %td
+        - if photo.date.present?
+          = photo.date
+        - else
+          %span.label.label-warning No date
+      %td.icol= image_tag photo.image.url :preview
+      %td.acol
+        %span.btn.btn-xs.btn-default
+          %span.glyphicon.glyphicon-sort
+        = link_to 'Edit', edit_photo_path(photo), class: 'btn btn-xs btn-primary'
+        = link_to 'Destroy', photo, :method => :delete, :data => { :confirm => 'Are you sure?' }, class: 'btn btn-xs btn-danger'
 
-%br
-
-= link_to 'New Photo', new_photo_path
+= link_to 'New Photo', new_photo_path, class: 'btn btn-success'

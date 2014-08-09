@@ -1,9 +1,19 @@
 PhotoPortfolio::Application.routes.draw do
-  resources :photos, path: 'admin/photos'
+  devise_for :users
+  resources :albums, path: 'admin/albums' do
+    collection do
+      post :sort
+    end
+  end
+  resources :photos, path: 'admin/photos' do
+    collection do
+      post :sort
+    end
+  end
   resources :lenses, path: 'admin/lenses'
   resources :lens, path: 'admin/lenses'
   resources :cams, path: 'admin/cams'
-  resources :albums, path: 'admin/albums'
+  get 'admin' => 'photos#index'
 
   get 'api/cams' => 'api#cams'
   get 'api/lenses' => 'api#lenses'

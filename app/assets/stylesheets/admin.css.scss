@@ -9,5 +9,29 @@
  * compiled file, but it's generally better to create a new file per style scope.
  *
  *= require_self
- *= require scaffolds
+ *= require jquery-ui/sortable
+ * require scaffolds
+ *= require chosen
  */
+
+@import 'bootstrap-sprockets';
+@import 'bootstrap';
+
+.acol{
+  width:140px;
+  text-align:right;
+}
+
+.icol{
+  text-align:center;
+}
+
+.ncol{
+  font-weight:bold;
+}
+
+.table{
+  span.label{
+    font-size:12px;
+  }
+}

@@ -7,14 +7,14 @@ class PhotosController < ApplicationController
   # GET /photos.json
   def index
     @photos = Photo.all
-    @photos = @photos.where(album_id: params[:album_id]) if params.has_key? :album_id
-    @photos = @photos.page params[:page]
+    # @photos = @photos.where(album_id: params[:album_id]) if params.has_key? :album_id
+    # @photos = @photos.page params[:page]
   end
 
   # GET /photos/1
   # GET /photos/1.json
-  def show
-  end
+  # def show
+  # end
 
   # GET /photos/new
   def new
@@ -32,7 +32,10 @@ class PhotosController < ApplicationController
 
     respond_to do |format|
       if @photo.save
-        format.html { redirect_to @photo, notice: 'Photo was successfully created.' }
+        maximumPosition = Photo.maximum('position')
+        maximumPosition = 0 unless maximumPosition.present?
+        @photo.update position: maximumPosition + 1
+        format.html { redirect_to photos_url, notice: 'Photo was successfully created.' }
         format.json { render action: 'show', status: :created, location: @photo }
       else
         format.html { render action: 'new' }
@@ -46,7 +49,7 @@ class PhotosController < ApplicationController
   def update
     respond_to do |format|
       if @photo.update(photo_params)
-        format.html { redirect_to @photo, notice: 'Photo was successfully updated.' }
+        format.html { redirect_to photos_url, notice: 'Photo was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }
@@ -65,6 +68,11 @@ class PhotosController < ApplicationController
     end
   end
 
+  def sort
+    Photo.sort params[:ids].split(',')
+    render text: 1
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_photo
@@ -73,6 +81,6 @@ class PhotosController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def photo_params
-      params.require(:photo).permit(:name, :description, :position, :views, :cam_id, :lens_id, :iso, :aperture, :exposure, :focal_distance)
+      params.require(:photo).permit(:name, :description, :position, :views, :cam_id, :lens_id, :iso, :aperture, :exposure, :focal_distance, :image, :date, :album_id)
     end
 end

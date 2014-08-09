@@ -1,19 +1,13 @@
 %h1 Listing lenses
 
-%table
-  %tr
-    %th Name
-    %th
-    %th
-    %th
-
+%table.table
   - @lenses.each do |lens|
     %tr
-      %td= lens.name
-      %td= link_to 'Show', lens
-      %td= link_to 'Edit', edit_len_path(lens)
-      %td= link_to 'Destroy', lens, :method => :delete, :data => { :confirm => 'Are you sure?' }
+      %td.ncol= lens.name
+      %td.acol
+        %span.btn.btn-xs.btn-default
+          %span.glyphicon.glyphicon-sort
+        = link_to 'Edit', edit_len_path(lens), class: 'btn btn-xs btn-primary'
+        = link_to 'Destroy', lens, :method => :delete, :data => { :confirm => 'Are you sure?' }, class: 'btn btn-xs btn-danger'
 
-%br
-
-= link_to 'New Lens', new_len_path
+= link_to 'New Lens', new_len_path, class: 'btn btn-success'

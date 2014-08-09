@@ -15,7 +15,7 @@
 # require turbolinks
 # require_tree .
 
-console.clear()
+console.clear() if console? and console.clear?
 
 require ['jquery', 'frontendConstructor'], ($, Frontend) ->
 

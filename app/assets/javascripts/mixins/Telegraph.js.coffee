@@ -22,7 +22,8 @@ define ['backbone'], (Backbone) ->
         catch e
           # Do not propagate it to my parent or to the passed event bus
           # if an error is thrown during event handling.
-          console.error "Error in trigger() during upstream('#{ar[0]}'): #{e.message}"
+          if console? and console.error?
+            console.error "Error in trigger() during upstream('#{ar[0]}'): #{e.message}"
           return
     
       # Telegraph the event up the component tree

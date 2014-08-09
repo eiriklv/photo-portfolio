@@ -6,35 +6,41 @@
         - @photo.errors.full_messages.each do |msg|
           %li= msg
 
-  .field
+  .form-group
+    = f.label 'Image'
+    - if @photo.image.present?
+      %br
+      = image_tag(@photo.image.url(:preview))
+    = f.file_field :image
+  .form-group
     = f.label :name
-    = f.text_field :name
-  .field
+    = f.text_field :name, class: 'form-control'
+  .form-group
+    = f.label :album
+    = collection_select :photo, :album_id, Album.all, :id, :name, {}, {class: 'chosen', width: '100%'}
+  .form-group
     = f.label :description
-    = f.text_area :description
-  .field
-    = f.label :position
-    = f.number_field :position
-  .field
-    = f.label :views
-    = f.number_field :views
-  .field
+    = f.text_area :description, class: 'form-control'
+  .form-group
+    = f.label :date
+    = f.text_field :date, class: 'form-control', type: 'date'
+  .form-group
     = f.label :cam
-    = f.text_field :cam
-  .field
+    = collection_select :photo, :cam_id, Cam.all, :id, :name, {}, {class: 'chosen', width: '100%'}
+  .form-group
     = f.label :lens
-    = f.text_field :lens
-  .field
-    = f.label :iso
-    = f.number_field :iso
-  .field
-    = f.label :aperture
-    = f.text_field :aperture
-  .field
-    = f.label :exposure
-    = f.text_field :exposure
-  .field
-    = f.label :focal_distance
-    = f.number_field :focal_distance
+    = collection_select :photo, :lens_id, Lens.all, :id, :name, {}, {class: 'chosen', width: '100%'}
+  .form-group
+    = f.label 'ISO (100–6400)'
+    = f.number_field :iso, class: 'form-control'
+  .form-group
+    = f.label 'Aperture (f11)'
+    = f.text_field :aperture, class: 'form-control'
+  .form-group
+    = f.label 'Exposure (1/10s)'
+    = f.text_field :exposure, class: 'form-control'
+  .form-group
+    = f.label 'Focal distance (34mm)'
+    = f.number_field :focal_distance, class: 'form-control'
   .actions
-    = f.submit 'Save'
+    = f.submit 'Save', class: 'btn btn-success'

@@ -1,0 +1,17 @@
+%nav.navbar.navbar-default.navbar-fixed-top{role:"navigation"}
+  .container
+    %ul.nav.navbar-nav
+
+      %li{class: ('active' if @albums or @album)}
+        = link_to 'Albums', '/admin/albums'
+      %li{class: ('active' if @photos or @photo)}
+        = link_to 'Photos', '/admin/photos'
+      %li{class: ('active' if @cams or @cam)}
+        = link_to 'Cameras', '/admin/cams'
+      %li{class: ('active' if @lenses or @lens)}
+        = link_to 'Lenses', '/admin/lenses'
+        
+
+    %ul.nav.navbar-nav.navbar-right
+      %li
+        = link_to 'Log out <span class="glyphicon glyphicon-log-out"></span>'.html_safe, destroy_user_session_path, method: :delete

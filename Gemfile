@@ -47,11 +47,14 @@ end
 
 gem 'haml-rails'
 gem 'requirejs-rails'
-
 gem 'coffee-rails-source-maps'
 # gem 'sass-rails-source-maps'
-
 gem 'acts_as_list'
-
 gem 'paperclip', '~> 4.1'
 gem 'kaminari'
+gem 'devise'
+gem 'bootstrap-sass', '~> 3.2.0'
+gem 'chosen-rails'
+gem 'jquery-ui-rails'
+gem 'mysql2'
+gem 'exifr'

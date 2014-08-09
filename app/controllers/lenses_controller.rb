@@ -11,8 +11,8 @@ class LensesController < ApplicationController
 
   # GET /lenses/1
   # GET /lenses/1.json
-  def show
-  end
+  # def show
+  # end
 
   # GET /lenses/new
   def new
@@ -30,7 +30,7 @@ class LensesController < ApplicationController
 
     respond_to do |format|
       if @lens.save
-        format.html { redirect_to @lens, notice: 'Lens was successfully created.' }
+        format.html { redirect_to lenses_url, notice: 'Lens was successfully created.' }
         format.json { render action: 'show', status: :created, location: @lens }
       else
         format.html { render action: 'new' }
@@ -44,7 +44,7 @@ class LensesController < ApplicationController
   def update
     respond_to do |format|
       if @lens.update(lens_params)
-        format.html { redirect_to @lens, notice: 'Lens was successfully updated.' }
+        format.html { redirect_to lenses_url, notice: 'Lens was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }

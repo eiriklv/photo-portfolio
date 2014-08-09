@@ -1,19 +1,13 @@
 %h1 Listing cams
 
-%table
-  %tr
-    %th Name
-    %th
-    %th
-    %th
-
+%table.table
   - @cams.each do |cam|
     %tr
-      %td= cam.name
-      %td= link_to 'Show', cam
-      %td= link_to 'Edit', edit_cam_path(cam)
-      %td= link_to 'Destroy', cam, :method => :delete, :data => { :confirm => 'Are you sure?' }
+      %td.ncol= cam.name
+      %td.acol
+        %span.btn.btn-xs.btn-default
+          %span.glyphicon.glyphicon-sort
+        = link_to 'Edit', edit_cam_path(cam), class: 'btn btn-xs btn-primary'
+        = link_to 'Destroy', cam, :method => :delete, :data => { :confirm => 'Are you sure?' }, class: 'btn btn-xs btn-danger'
 
-%br
-
-= link_to 'New Cam', new_cam_path
+= link_to 'New Cam', new_cam_path, class: 'btn btn-success'

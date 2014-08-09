@@ -11,8 +11,8 @@ class AlbumsController < ApplicationController
 
   # GET /albums/1
   # GET /albums/1.json
-  def show
-  end
+  # def show
+  # end
 
   # GET /albums/new
   def new
@@ -30,7 +30,10 @@ class AlbumsController < ApplicationController
 
     respond_to do |format|
       if @album.save
-        format.html { redirect_to @album, notice: 'Album was successfully created.' }
+        maximumPosition = Album.maximum('position')
+        maximumPosition = 0 unless maximumPosition.present?
+        @album.update position: maximumPosition + 1
+        format.html { redirect_to albums_url, notice: 'Album was successfully created.' }
         format.json { render action: 'show', status: :created, location: @album }
       else
         format.html { render action: 'new' }
@@ -44,7 +47,7 @@ class AlbumsController < ApplicationController
   def update
     respond_to do |format|
       if @album.update(album_params)
-        format.html { redirect_to @album, notice: 'Album was successfully updated.' }
+        format.html { redirect_to albums_url, notice: 'Album was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }
@@ -61,6 +64,11 @@ class AlbumsController < ApplicationController
       format.html { redirect_to albums_url }
       format.json { head :no_content }
     end
+  end
+
+  def sort
+    Album.sort params[:ids].split(',')
+    render text: 1
   end
 
   private
