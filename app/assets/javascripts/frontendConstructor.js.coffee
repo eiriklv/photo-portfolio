@@ -1,4 +1,4 @@
-define ['jquery', 'react', 'MainComponent', 'AlbumsCollection', 'PhotosCollection', 'CamsCollection', 'LensesCollection', 'BackboneRouter'], ($, React, MainComponent, AlbumsCollection, PhotosCollection, CamsCollection, LensesCollection, BackboneRouter) ->
+define ['jquery', 'react', 'MainComponent', 'AlbumsCollection', 'PhotosCollection', 'CamsCollection', 'LensesCollection', 'BackboneRouter', 'YandexCounter'], ($, React, MainComponent, AlbumsCollection, PhotosCollection, CamsCollection, LensesCollection, BackboneRouter, YandexCounter) ->
   
   class Frontend
     constructor: ->
