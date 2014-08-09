@@ -1,4 +1,4 @@
-define [], ->
+define ['backbone'], (Backbone) ->
 
   # A module that allows us to send Backbone events up the tree of components
   async = ((cb) -> cb())

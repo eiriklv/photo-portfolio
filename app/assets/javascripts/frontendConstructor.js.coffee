@@ -3,22 +3,16 @@ define ['jquery', 'react', 'MainComponent', 'AlbumsCollection', 'PhotosCollectio
   class Frontend
     constructor: ->
       
-        $('link[rel="stylesheet"]').each ->
-          $me = $(this)
-          src = $me.attr 'href'
-          setInterval ->
-            newSrc = "#{src}&r=#{Math.random()}"
-            $me.attr 'href', newSrc
-          , 3000
+      window.Current = {}
 
-      window.Router = new BackboneRouter
-      window.Router.startListening()
-      
-      mainComponent = MainComponent
+      Current.Router = new BackboneRouter
+      Current.Router.startListening()
+
+      Current.Main = MainComponent
         albums: new AlbumsCollection [], {}
         photos: new PhotosCollection [], {}
         cams: new CamsCollection [], {}
         lenses: new LensesCollection [], {}
       
-      reactRoot = document.getElementById 'reactRoot'
-      React.renderComponent mainComponent, reactRoot
+      Current.reactRoot = document.getElementById 'reactRoot'
+      React.renderComponent Current.Main, reactRoot

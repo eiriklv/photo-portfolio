@@ -18,7 +18,7 @@ define ['react', 'PhotosComponent', 'PhotoLargeComponent', 'TelegraphMixin', 'Ab
       selectedPhotoId: null
 
     componentDidMount: ->
-      @on 'photo:change', (e) =>
+      @on 'photos:change', (e) =>
         if e.id
           @setState
             activeContent: 'PhotoLarge'
@@ -26,7 +26,7 @@ define ['react', 'PhotosComponent', 'PhotoLargeComponent', 'TelegraphMixin', 'Ab
       
       @on 'photoLarge:close', =>
         @setState
-          activeContent: 'Photos'
+          activeContent: 'photo'
           selectedPhotoId: null
 
       @on 'photoLarge:prev', =>
@@ -36,7 +36,7 @@ define ['react', 'PhotosComponent', 'PhotoLargeComponent', 'TelegraphMixin', 'Ab
         newIndex = photos.length - 1 if newIndex < 0
         newModel = photos.at(newIndex)
         @setState selectedPhotoId: newModel.get('id')
-        window.Router.navigate "photo/#{newModel.get('album_id') or 'all'}/#{newModel.get('id')}"
+        Current.Router.navigate "photo/#{newModel.get('album_id') or 'all'}/#{newModel.get('id')}"
 
       @on 'photoLarge:next', =>
         photos = @props.photos
@@ -45,17 +45,20 @@ define ['react', 'PhotosComponent', 'PhotoLargeComponent', 'TelegraphMixin', 'Ab
         newIndex = 0 if newIndex >= photos.length
         newModel = photos.at(newIndex)
         @setState selectedPhotoId: newModel.get('id')
-        window.Router.navigate "photo/#{newModel.get('album_id') or 'all'}/#{newModel.get('id')}"
+        Current.Router.navigate "photo/#{newModel.get('album_id') or 'all'}/#{newModel.get('id')}"
 
     filterPhotosByAlbumId: (albumId) ->
       if @refs? and @refs.photos?
         @albumId = albumId
         @refs.photos.filterPhotosByAlbumId albumId
 
+    photos: ->
+      @refs.photos
+
     render: ->
       if @state.activeContent?
         activeContent = switch @state.activeContent
-          when 'Photos' then new PhotosComponent
+          when 'photo' then new PhotosComponent
             ref: 'photos'
             collection: @props.photos
             defaultAlbumId: @albumId
@@ -64,7 +67,7 @@ define ['react', 'PhotosComponent', 'PhotoLargeComponent', 'TelegraphMixin', 'Ab
             model: @props.photos.get @state.selectedPhotoId
             cams: @props.cams
             lenses: @props.lenses
-          when 'About' then new AboutComponent
-          when 'Contact' then new ContactComponent
+          when 'about' then new AboutComponent
+          when 'contact' then new ContactComponent
           else null
       div {className: 'content'}, (activeContent if activeContent?)

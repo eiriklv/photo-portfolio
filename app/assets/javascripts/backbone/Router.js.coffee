@@ -22,6 +22,7 @@ define ['backbone'], (Backbone) ->
         Backbone.history.loadUrl(url)
 
     routes:
+      '': 'photo'
       'photo': 'photo'
       'photo/:album': 'photo'
       'photo/:album/:photo': 'photo'
@@ -29,19 +30,48 @@ define ['backbone'], (Backbone) ->
       'contact': 'contact'
 
     navigation:
-      menuName: 'photo'
-      albumId: 'all'
-      photoId: null
+      menuName: [false, false, 'photo']
+      albumId: [false, false, 0]
+      photoId: [false, false, null]
 
-    photo: (album, photo) ->
-      @navigation.menuName = 'photo'
-      @navigation.albumId = album if album?
-      @navigation.photoId = photo if photo?
+    photo: (albumId, photoId) ->
+      albumId = parseInt(albumId) or 0
+      photoId = parseInt(photoId) or 0
+      
+      @setOnceNavigationOption 'menuName', 'photo'
+      @setOnceNavigationOption 'albumId', albumId
+      @setOnceNavigationOption 'photoId', photoId
+
+      if Current.mainNavigator?
+        Current.mainNavigator
+          menuUrl: 'photo'
+          albumId: albumId
+          photoId: photoId
 
     about: ->
-      @navigation.menuName = 'about'
+      @setOnceNavigationOption 'menuName', 'about'
+
+      if Current.mainNavigator?
+        Current.mainNavigator
+          menuUrl: 'about'
+          albumId: 0
+          photoId: 0
 
     contact: ->
-      @navigation.menuName = 'contact'
-      
-      
+      @setOnceNavigationOption 'menuName', 'contact'
+
+      if Current.mainNavigator?
+        Current.mainNavigator
+          menuUrl: 'contact'
+          albumId: 0
+          photoId: 0
+
+    setOnceNavigationOption: (option, value) ->
+      unless @navigation[option][0]
+        @navigation[option][0] = true
+        @navigation[option][2] = value
+    
+    getOnceNavigationOption: (option, callback) ->
+      unless @navigation[option][1]
+        @navigation[option][1] = true
+        callback @navigation[option][2]

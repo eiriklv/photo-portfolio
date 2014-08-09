@@ -20,13 +20,8 @@ define ['react', 'ReactBackboneMixin', 'TilesMixin', 'TelegraphMixin'], (React, 
     componentDidMount: ->
       image = @refs.thumb.getDOMNode()
       image.onload = image.onerror = @thumbLoaded
-
-      if window.Router.navigation.photoId? and parseInt(@props.id) is parseInt(window.Router.navigation.photoId)
-        window.Router.navigation.photoId = null
-        @onClick()
     
     thumbLoaded: ->
-      # @setState thumbLoaded: true
       @props.arrangeTiles() if @props.arrangeTiles?
     
     onMouseEnter: (e) ->
@@ -50,8 +45,8 @@ define ['react', 'ReactBackboneMixin', 'TilesMixin', 'TelegraphMixin'], (React, 
       , 10
     
     onClick: (e) ->
-      @upstream 'photo:change', {id: @props.id}
-      window.Router.navigate "photo/#{@props.album_id or 'all'}/#{@props.id}"
+      @upstream 'photos:change', {id: @props.id}
+      Current.Router.navigate "photo/#{@props.album_id or 'all'}/#{@props.id}"
     
     detectSide: (rect, mouseX, mouseY) ->
       distance =
@@ -109,7 +104,9 @@ define ['react', 'ReactBackboneMixin', 'TilesMixin', 'TelegraphMixin'], (React, 
       defaultAlbumId: null
 
     componentWillMount: ->
-      @props.collection.fetch()
+      @props.collection.fetch
+        success: =>
+          @upstream 'photos:ready'
 
     componentDidMount: ->
       if @props.defaultAlbumId
@@ -123,10 +120,14 @@ define ['react', 'ReactBackboneMixin', 'TilesMixin', 'TelegraphMixin'], (React, 
     arrangeTiles: ->
       @tiles.arrange()
     
+    photo: (id) ->
+      @refs["photo_#{id}"]
+    
     render: ->
       photos = @props.collection.map (model) =>
         new PhotoComponent
           key: model.get 'id'
+          ref: "photo_#{model.get('id')}"
           id: model.get 'id'
           name: model.get 'name'
           description: model.get 'description'

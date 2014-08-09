@@ -61,7 +61,7 @@ define ['react', 'TelegraphMixin', 'ReactBackboneMixin'], (React, TelegraphMixin
       @setState visible: false
       setTimeout =>
         @upstream 'photoLarge:close'
-        window.Router.navigate "photo/#{@props.model.get('album_id') or 'all'}"
+        Current.Router.navigate "photo/#{@props.model.get('album_id') or 'all'}"
       , 300
 
     windowSize: ->

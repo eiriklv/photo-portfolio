@@ -10,14 +10,9 @@ define ['react', 'ReactBackboneMixin', 'TelegraphMixin'], (React, ReactBackboneM
     getInitialState: ->
       active: false
 
-    componentDidMount: ->
-      if window.Router.navigation.albumId? and (parseInt(@props.id) is parseInt(window.Router.navigation.albumId) or (@props.id is 0 and window.Router.navigation.albumId is 'all'))
-        window.Router.navigation.albumId = null
-        @clickHandler()
-
     clickHandler: ->
       @upstream 'albums:change', {id: @props.id}
-      window.Router.navigate "photo/#{@props.id or 'all'}"
+      Current.Router.navigate "photo/#{@props.id or 'all'}"
 
     clickCallback: (selectedId) ->
       @setState active: @props.id is selectedId
@@ -37,7 +32,9 @@ define ['react', 'ReactBackboneMixin', 'TelegraphMixin'], (React, ReactBackboneM
       visible: false
     
     componentWillMount: ->
-      @props.collection.fetch()
+      @props.collection.fetch
+        success: =>
+          @upstream 'albums:ready'
       @on 'albums:change', (e) =>
         if @refs?
           for key, album of @refs
@@ -76,17 +73,12 @@ define ['react', 'ReactBackboneMixin', 'TelegraphMixin'], (React, ReactBackboneM
     getInitialState: ->
       active: false
 
-    componentDidMount: ->
-      if window.Router.navigation.menuName? and @props.url is window.Router.navigation.menuName
-        window.Router.navigation.menuName = null
-        @clickHandler()
-
     clickHandler: ->
-      @upstream 'menu:change', {name: @props.name}
-      window.Router.navigate @props.url
+      @upstream 'menu:change', {url: @props.url}
+      Current.Router.navigate @props.url
 
-    clickCallback: (selectedName) ->
-      @setState active: @props.name is selectedName
+    clickCallback: (selectedURL) ->
+      @setState active: @props.url is selectedURL
 
     render: ->
       classes = cx
@@ -107,14 +99,22 @@ define ['react', 'ReactBackboneMixin', 'TelegraphMixin'], (React, ReactBackboneM
 
     componentWillMount: ->
       @on 'menu:change', (e) =>
-        @setState activePage: e.name
+        @setState activePage: e.url
         if @refs?
-          for key, menuItem of @refs
-            menuItem.clickCallback e.name
+          for key in [1..3]
+            menuItem = @refs["menu_#{key}"]
+            if menuItem?
+              menuItem.clickCallback e.url
+
+    componentDidMount: ->
+      @upstream 'menu:ready'
 
     onLogoClick: ->
-      @upstream 'menu:change', {name: 'Photos'}
-      window.Router.navigate 'photo'
+      @upstream 'menu:change', {url: 'photo'}
+      Current.Router.navigate 'photo'
+
+    albums: ->
+      @refs.albums
 
     render: ->
       div {className: 'header'},
@@ -133,5 +133,6 @@ define ['react', 'ReactBackboneMixin', 'TelegraphMixin'], (React, ReactBackboneM
             name: 'Contact'
             url: 'contact'
         AlbumsComponent
+          ref: 'albums'
           collection: @props.albums
-          visible: @state.activePage is 'Photos'
+          visible: @state.activePage is 'photo'
