@@ -7,6 +7,8 @@ class ApplicationController < ActionController::Base
   layout 'admin', except: [:frontend, :cams, :photos, :lenses, :albums]
   
   def frontend
+    @album = Album.find params[:album_id] if params.has_key? :album_id
+    @photo = Photo.find params[:photo_id] if params.has_key? :photo_id
     render layout: 'frontend'
   end
 end

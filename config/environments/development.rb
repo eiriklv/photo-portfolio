@@ -31,4 +31,6 @@ PhotoPortfolio::Application.configure do
   
   config.assets.cache_store = :null_store
 
+  config.host_name = 'localhost'
+
 end

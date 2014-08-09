@@ -2,6 +2,21 @@
 %html
   %head
     %title Karén | Photography
+
+    %meta{property: "og:site_name", content: "Karén | Photography"}
+    %meta{property: "og:type", content: "website"}
+    - if @photo.present?
+      %meta{property: "og:image", content: "http://#{Rails.application.config.host_name}#{@photo.image.url(:normal)}"}
+      %meta{property: "og:title", content: @photo.name}
+      %meta{property: "og:description", content: @photo.description}
+    - elsif @album.present?
+      %meta{property: "og:image", content: "http://#{Rails.application.config.host_name}#{@album.photos.order('rand()').first.image.url(:normal)}"}
+      %meta{property: "og:title", content: @album.name}
+      %meta{property: "og:description", content: @album.description}
+    - else
+      %meta{property: "og:image", content: "http://#{Rails.application.config.host_name}#{Photo.order('rand()').first.image.url(:normal)}"}
+      %meta{property: "og:title", content: "Karén | Photography"}
+
     = stylesheet_link_tag    'frontend', media: 'all', 'data-turbolinks-track' => false
     =# javascript_include_tag 'frontend', 'data-turbolinks-track' => false
     = requirejs_include_tag 'frontend'
