@@ -101,6 +101,20 @@
       background:rgba(0, 0, 0, .6);
       padding:3px 10px;
       @include inline-block;
+
+      .fa{
+        margin:0 0 0 10px;
+        cursor:pointer;
+//        font-size:25px;
+        color:#bbb;
+        color:rgba(255, 255, 255, .7);
+        @include animate;
+        @include text-shadow(black, 5px);
+        
+        &:hover{
+          color:#3b5998;
+        }
+      }
     }
 
     .description{

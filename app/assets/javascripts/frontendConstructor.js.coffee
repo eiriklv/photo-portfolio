@@ -4,6 +4,21 @@ define ['jquery', 'react', 'MainComponent', 'AlbumsCollection', 'PhotosCollectio
     constructor: ->
       
       window.Current = {}
+      
+      window.fbAsyncInit = ->
+        FB.init
+          appId: '466800570010174',
+          xfbml: true,
+          version: 'v2.0'
+
+      fbFN = (d, s, id) ->
+        fjs = d.getElementsByTagName(s)[0]
+        return if d.getElementById(id)
+        js = d.createElement(s)
+        js.id = id
+        js.src = "//connect.facebook.net/en_US/sdk.js"
+        fjs.parentNode.insertBefore(js, fjs)
+      fbFN(document, 'script', 'facebook-jssdk')
 
       Current.Router = new BackboneRouter
       Current.Router.startListening()

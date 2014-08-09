@@ -121,6 +121,14 @@ define ['react', 'TelegraphMixin', 'ReactBackboneMixin'], (React, TelegraphMixin
           @setState visible: true
       , 300
     
+    onFacebookClick: ->
+      FB.ui
+        method: 'share'
+        display: 'iframe'
+      , (response) ->
+        if console? and console.log?
+          console.log response
+    
     render: ->
       classes = cx
         largePhoto: true
@@ -137,7 +145,9 @@ define ['react', 'TelegraphMixin', 'ReactBackboneMixin'], (React, TelegraphMixin
         div {className: 'closeButton', onClick: @onCloseButtonClick},
           i {className: 'fa fa-times'}
         div {className: 'about'},
-          span {className: 'name'}, @props.model.get 'name'
+          span {className: 'name'},
+            span {}, @props.model.get 'name'
+            i {className: 'fa fa-facebook-square', onClick: @onFacebookClick}
           br {}
           span {className: 'description'}, @props.model.get 'description'
         div {className: 'techSpec'},
