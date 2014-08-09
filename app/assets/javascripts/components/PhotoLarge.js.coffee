@@ -129,6 +129,8 @@ define ['react', 'TelegraphMixin', 'ReactBackboneMixin'], (React, TelegraphMixin
       , (response) ->
         if console? and console.log?
           console.log response
+
+      window.YandexCounter.reachGoal 'FB_SHARE_CLICK' if window.YandexCounter?
     
     render: ->
       classes = cx
