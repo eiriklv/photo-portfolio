@@ -7,7 +7,7 @@ define ['react'], (React) ->
     displayName: 'PhotoLargeComponent'
     
     render: ->
-      div {className: 'contact'},
+      div {className: 'contactPage'},
         h1 {}, 'Contact'
         a {href: 'https://www.flickr.com/photos/126027715@N08/sets', target: '_blank'},
           i {className: 'fa fa-flickr'}
