@@ -1,12 +1,12 @@
-urlArgs: 'v=39'
+urlArgs: 'v=1.0'
 
 paths:
 
-  jquery: '//code.jquery.com/jquery-1.11.0'
+  jquery: 'libs/jquery-1.11.0'
   isotope: 'libs/isotope.pkgd'
-  react: '//cdnjs.cloudflare.com/ajax/libs/react/0.11.0/react-with-addons'
-  backbone: '//cdnjs.cloudflare.com/ajax/libs/backbone.js/1.1.2/backbone'
-  underscore: '//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.6.0/underscore'
+  react: 'libs/react-with-addons'
+  backbone: 'libs/backbone'
+  underscore: 'libs/underscore'
 
   # jquery: '//code.jquery.com/jquery-1.11.0.min'
   # react: '//cdnjs.cloudflare.com/ajax/libs/react/0.11.0/react-with-addons.min'
@@ -57,3 +57,6 @@ shim:
     exports: '$'
   underscore:
     exports: '_'
+
+modules:
+  - name: 'frontend'
