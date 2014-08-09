@@ -123,15 +123,9 @@ define ['react', 'TelegraphMixin', 'ReactBackboneMixin'], (React, TelegraphMixin
     
     onFacebookClick: ->
       FB.ui
-        # method: 'feed'
-        # name: @props.model.get 'name'
-        # link: window.location.href
-        # description: @props.model.get 'description'
-
         method: 'share'
         href: window.location.href
         display: 'iframe'
-
       , (response) ->
         if console? and console.log?
           console.log response
