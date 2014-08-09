@@ -16,7 +16,12 @@ class Photo < ActiveRecord::Base
     normal: '-quality 80',
     large: '-quality 80',
     xlarge: '-quality 80'
-  },default_url: '/images/:style/missing.png'
+  },
+    default_url: '/images/:style/missing.png',
+    path: ':rails_root/:maybe_public/i/:hash/i.:extension',
+    url: '/i/:hash/i.:extension',
+    hash_data: ':class/:attachment/:id/:style/:updated_at',
+    hash_secret: 'n8t&T*&RfyoF&*(OWYf89wheF:HWOEIfh9348ytg9h34ofpO*HW$389g9347y5gf79eghpergoe;kghe)rghr@$R@2e'
   validates_attachment_content_type :image, content_type: /\Aimage\/.*\Z/
 
   default_scope order 'position desc'
@@ -26,19 +31,19 @@ class Photo < ActiveRecord::Base
   # paginates_per 10
   
   def thumb_url
-    self.image.url :thumb
+    self.image.url :thumb, timestamp: false
   end
   def thumb_x2_url
-    self.image.url :thumb_retina
+    self.image.url :thumb_retina, timestamp: false
   end
   def normal
-    self.image.url :normal
+    self.image.url :normal, timestamp: false
   end
   def large
-    self.image.url :large
+    self.image.url :large, timestamp: false
   end
   def xlarge
-    self.image.url :xlarge
+    self.image.url :xlarge, timestamp: false
   end
 
   def resize_image(style)
@@ -81,8 +86,6 @@ class Photo < ActiveRecord::Base
     exif = EXIFR::JPEG.new(image.queued_for_write[:original].path)
     return if exif.nil? or not exif.exif?
     begin
-      p exif.model
-      p exif
       self.exposure = exif.exposure_time.to_s.gsub /\/1$/, ''
       self.aperture = exif.f_number.to_f
       self.focal_distance = exif.focal_length.to_i
