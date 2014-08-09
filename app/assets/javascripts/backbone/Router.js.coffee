@@ -21,6 +21,8 @@ define ['backbone'], (Backbone) ->
         # address changes in the address bar
         Backbone.history.loadUrl(url)
 
+      FB.Dialog.remove FB.Dialog._active if FB?
+
     routes:
       '': 'photo'
       'photo': 'photo'
