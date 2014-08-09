@@ -105,12 +105,14 @@ define ['react', 'ReactBackboneMixin', 'TelegraphMixin'], (React, ReactBackboneM
             menuItem = @refs["menu_#{key}"]
             if menuItem?
               menuItem.clickCallback e.url
+        @refs.albums.upstream 'albums:change', {id: 0} if e.url is 'photo'
 
     componentDidMount: ->
       @upstream 'menu:ready'
 
     onLogoClick: ->
       @upstream 'menu:change', {url: 'photo'}
+      @refs.albums.upstream 'albums:change', {id: 0}
       Current.Router.navigate 'photo'
 
     albums: ->
