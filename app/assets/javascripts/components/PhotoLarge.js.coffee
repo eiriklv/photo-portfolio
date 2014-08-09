@@ -124,7 +124,7 @@ define ['react', 'TelegraphMixin', 'ReactBackboneMixin'], (React, TelegraphMixin
     render: ->
       classes = cx
         largePhoto: true
-        visible: @state.visible
+        visible: @state.visible and not @state.loading
       
       loaderClasses = cx
         loader: true

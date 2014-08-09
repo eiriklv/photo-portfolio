@@ -40,10 +40,9 @@
       display:block;
     }
 
-    @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+    @media (-webkit-min-device-pixel-ratio: 2) {
       @include background('loader_x2.gif', center, center);
       background-size:32px;
-      background-image:none;
     }
   }
 
