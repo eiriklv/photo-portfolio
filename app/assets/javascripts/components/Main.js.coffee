@@ -16,6 +16,7 @@ define ['react', 'HeaderComponent', 'ContentComponent', 'FooterComponent', 'Tele
         @refs.content.setState activeContent: e.url
 
       @on 'albums:change', (e) =>
+        Current.albumId = e.id
         @refs.content.filterPhotosByAlbumId e.id
 
       @on 'menu:ready', ->

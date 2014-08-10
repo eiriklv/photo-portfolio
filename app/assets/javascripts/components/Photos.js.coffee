@@ -46,7 +46,7 @@ define ['react', 'ReactBackboneMixin', 'TilesMixin', 'TelegraphMixin'], (React, 
     
     onClick: (e) ->
       @upstream 'photos:change', {id: @props.id}
-      Current.Router.navigate "photo/#{@props.album_id or 'all'}/#{@props.id}"
+      Current.Router.navigate "photo/#{Current.albumId or 'all'}/#{@props.id}"
     
     detectSide: (rect, mouseX, mouseY) ->
       distance =

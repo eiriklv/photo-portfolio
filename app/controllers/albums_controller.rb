@@ -34,9 +34,11 @@ class AlbumsController < ApplicationController
         maximumPosition = 0 unless maximumPosition.present?
         @album.update position: maximumPosition + 1
 
-        me = FbGraph::User.me current_user.access_token
-        album = me.album! name: @album.name
-        @album.update facebook_id: album.raw_attributes['id']
+        if Rails.env.production?
+          me = FbGraph::User.me current_user.access_token
+          album = me.album! name: @album.name
+          @album.update facebook_id: album.raw_attributes['id']
+        end
 
         format.html { redirect_to albums_url, notice: 'Album was successfully created.' }
         format.json { render action: 'show', status: :created, location: @album }

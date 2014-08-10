@@ -7,8 +7,12 @@ class ApplicationController < ActionController::Base
   layout 'admin', except: [:frontend, :cams, :photos, :lenses, :albums]
   
   def frontend
-    @album = Album.find params[:album_id] if params.has_key? :album_id
-    @photo = Photo.find params[:photo_id] if params.has_key? :photo_id
-    render layout: 'frontend'
+    if request.env["HTTP_USER_AGENT"] =~ /MSIE 8.0/
+      render layout: 'not_supported_browser'
+    else
+      @album = Album.find params[:album_id] if params.has_key? :album_id and params[:album_id] != 'all'
+      @photo = Photo.find params[:photo_id] if params.has_key? :photo_id
+      render layout: 'frontend'
+    end
   end
 end

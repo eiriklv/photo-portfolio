@@ -36,7 +36,7 @@ define ['react', 'PhotosComponent', 'PhotoLargeComponent', 'TelegraphMixin', 'Ab
         newIndex = photos.length - 1 if newIndex < 0
         newModel = photos.at(newIndex)
         @setState selectedPhotoId: newModel.get('id')
-        Current.Router.navigate "photo/#{newModel.get('album_id') or 'all'}/#{newModel.get('id')}"
+        Current.Router.navigate "photo/#{Current.albumId or 'all'}/#{newModel.get('id')}"
 
       @on 'photoLarge:next', =>
         photos = @props.photos
@@ -45,7 +45,7 @@ define ['react', 'PhotosComponent', 'PhotoLargeComponent', 'TelegraphMixin', 'Ab
         newIndex = 0 if newIndex >= photos.length
         newModel = photos.at(newIndex)
         @setState selectedPhotoId: newModel.get('id')
-        Current.Router.navigate "photo/#{newModel.get('album_id') or 'all'}/#{newModel.get('id')}"
+        Current.Router.navigate "photo/#{Current.albumId or 'all'}/#{newModel.get('id')}"
 
     filterPhotosByAlbumId: (albumId) ->
       if @refs? and @refs.photos?

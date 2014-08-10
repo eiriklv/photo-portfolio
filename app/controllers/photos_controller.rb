@@ -4,38 +4,46 @@ class PhotosController < ApplicationController
   layout 'admin'
 
   def publish_on_facebook
-    me = FbGraph::User.me current_user.access_token
-    album = FbGraph::Album.new @photo.album.facebook_id, access_token: current_user.access_token
-    photo = album.photo!(
-      access_token: current_user.access_token,
-      source: File.new(@photo.image.path(:normal)),
-      message: @photo.name
-    )
-    @photo.update facebook_id: photo.raw_attributes['id']
-    redirect_to photos_url, notice: 'Photo was successfully published to Facebook.'
+    if Rails.env.production?
+      me = FbGraph::User.me current_user.access_token
+      album = FbGraph::Album.new @photo.album.facebook_id, access_token: current_user.access_token
+      photo = album.photo!(
+        access_token: current_user.access_token,
+        source: File.new(@photo.image.path(:normal)),
+        message: @photo.name
+      )
+      @photo.update facebook_id: photo.raw_attributes['id']
+      redirect_to photos_url, notice: 'Photo was successfully published to Facebook.'
+    else
+      redirect_to photos_url, notice: 'Looks like you are not in production environment.'
+    end
   end
   
   def refresh_from_facebook
-    me = FbGraph::User.me current_user.access_token
-    photo = FbGraph::Photo.new @photo.facebook_id, access_token: current_user.access_token
+    if Rails.env.production?
+      me = FbGraph::User.me current_user.access_token
+      photo = FbGraph::Photo.new @photo.facebook_id, access_token: current_user.access_token
 
-    @photo.facebook_users = []
-    likes = photo.likes
-    while likes.count > 0
-      save_likes likes, @photo
-      likes = likes.next
+      @photo.facebook_users = []
+      likes = photo.likes
+      while likes.count > 0
+        save_likes likes, @photo
+        likes = likes.next
+      end
+      @photo.update likes: @photo.facebook_users.count
+
+      @photo.facebook_comments.destroy_all
+      comments = photo.comments
+      while comments.count > 0
+        save_comments comments, @photo
+        comments = comments.next
+      end
+      @photo.update comments: @photo.facebook_comments.count
+
+      redirect_to photos_url, notice: 'Photo data was successfully refreshed from Facebook.'
+    else
+      redirect_to photos_url, notice: 'Looks like you are not in production environment.'
     end
-    @photo.update likes: @photo.facebook_users.count
-
-    @photo.facebook_comments.destroy_all
-    comments = photo.comments
-    while comments.count > 0
-      save_comments comments, @photo
-      comments = comments.next
-    end
-    @photo.update comments: @photo.facebook_comments.count
-
-    redirect_to photos_url, notice: 'Photo data was successfully refreshed from Facebook.'
   end
 
   # GET /photos

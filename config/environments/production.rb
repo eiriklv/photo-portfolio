@@ -61,7 +61,7 @@ PhotoPortfolio::Application.configure do
   # application.js, application.css, and all non-JS/CSS in app/assets folder are already added.
   # config.assets.precompile += %w( search.js )
   config.assets.precompile += ['frontend.js', 'admin.js']
-  config.assets.precompile += ['frontend.css', 'admin.css']
+  config.assets.precompile += ['frontend.css', 'admin.css', 'not_supported_browser.css']
   # config.assets.precompile += ['frontend.js', 'admin.js']
   # config.assets.precompile += ['frontend.css', 'admin.css']
 
