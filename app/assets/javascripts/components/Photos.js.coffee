@@ -1,6 +1,6 @@
 define ['react', 'ReactBackboneMixin', 'TilesMixin', 'TelegraphMixin'], (React, ReactBackboneMixin, TilesMixin, TelegraphMixin) ->
 
-  {div, img} = React.DOM
+  {div, img, i, span} = React.DOM
   cx = React.addons.classSet
 
   PhotoComponent = React.createClass
@@ -93,6 +93,15 @@ define ['react', 'ReactBackboneMixin', 'TilesMixin', 'TelegraphMixin'], (React, 
         div {className: overlayClasses},
           div {className: 'name'}, @props.name
           div {className: 'description'}, @props.description
+          div {className: 'social'},
+            if @props.likes
+              div {className: 'likes'},
+                i {className: 'fa fa-thumbs-up'}
+                span {}, @props.likes
+            if @props.comments
+              div {className: 'comments'},
+                i {className: 'fa fa-comments'}
+                span {}, @props.comments
 
 
   React.createClass
@@ -141,6 +150,8 @@ define ['react', 'ReactBackboneMixin', 'TilesMixin', 'TelegraphMixin'], (React, 
           focal_distance: model.get 'focal_distance'
           thumb_url: model.get 'thumb_url'
           thumb_x2_url: model.get 'thumb_x2_url'
+          likes: model.get 'likes'
+          comments: model.get 'comments'
           arrangeTiles: @arrangeTiles
 
       div {ref: 'tiles', id: 'photos', className: 'photos'}, photos
