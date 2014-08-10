@@ -89,7 +89,7 @@ define ['react', 'ReactBackboneMixin', 'TilesMixin', 'TelegraphMixin'], (React, 
       else @props.thumb_url
       
       div {ref: 'me', className: "tile photo album_#{@props.album_id}", onMouseEnter: @onMouseEnter, onMouseLeave: @onMouseLeave, onClick: @onClick},
-        img {ref: 'thumb', className: 'thumb', src: imgURL}
+        img {ref: 'thumb', className: 'thumb', src: imgURL, width: 320, height: 320}
         div {className: overlayClasses},
           div {className: 'name'}, @props.name
           div {className: 'description'}, @props.description
