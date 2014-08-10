@@ -198,6 +198,7 @@ padding-bottom:0 !important;
           @include text-shadow(black, 10px);
           
           .name{
+            padding-top:30% !important;
             font-size:20px;
             @include animate;
           }
