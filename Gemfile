@@ -59,3 +59,4 @@ gem 'jquery-ui-rails'
 gem 'mysql2'
 gem 'exifr'
 gem 'fb_graph'
+# https://github.com/nov/fb_graph#extend-access-token-lifetime

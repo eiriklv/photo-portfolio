@@ -204,7 +204,10 @@ padding-bottom:0 !important;
           .description{
             font-size:14px;
             @include animate;
-          }          
+          }
+          .social{
+            @include animate;
+          }
         }
 
         &:hover{
@@ -216,6 +219,10 @@ padding-bottom:0 !important;
               @include text-shadow(rgba(0, 0, 0, 0), 10px);
             }
             .description{
+              color:rgba(255, 255, 255, 0) !important;
+              @include text-shadow(rgba(0, 0, 0, 0), 10px);
+            }
+            .social{
               color:rgba(255, 255, 255, 0) !important;
               @include text-shadow(rgba(0, 0, 0, 0), 10px);
             }
