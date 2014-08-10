@@ -101,20 +101,6 @@
       background:rgba(0, 0, 0, .6);
       padding:3px 10px;
       @include inline-block;
-
-      .fa{
-        margin:0 0 0 10px;
-        cursor:pointer;
-//        font-size:25px;
-        color:#bbb;
-        color:rgba(255, 255, 255, .7);
-        @include animate;
-        @include text-shadow(black, 5px);
-        
-        &:hover{
-          color:#3b5998;
-        }
-      }
     }
 
     .description{
@@ -127,6 +113,44 @@
       color:white;
       color:rgba(255, 255, 255, .75);
       @include inline-block;
+    }
+
+    .social{
+      font-size:16px;
+      padding:0 10px 2px 10px;
+      font-weight:400;
+      background:black;
+      background:rgba(0, 0, 0, .6);
+      color:white;
+      color:rgba(255, 255, 255, .75);
+
+      div{
+        display:inline;
+        margin:0 10px 0 0;
+        
+        i{
+          margin:0 5px 0 0;
+        }
+        
+        span{
+          font-size:15px;
+        }
+      }
+
+      .fa-facebook-square{
+//        margin:0 0 0 10px;
+        cursor:pointer;
+//        font-size:25px;
+        color:#bbb;
+        color:rgba(255, 255, 255, .7);
+        @include animate;
+        
+        &:hover{
+          color:#fff;
+          color:rgba(255, 255, 255, 1);
+        }
+      }
+
     }
   }
   

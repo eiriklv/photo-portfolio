@@ -141,6 +141,9 @@ define ['react', 'TelegraphMixin', 'ReactBackboneMixin'], (React, TelegraphMixin
         loader: true
         visible: @state.loading
       
+      likes = @props.model.get 'likes'
+      comments = @props.model.get 'comments'
+      
       div {className: classes},
         div {className: 'photosContainer'},
           img {className: 'photo', src: @state.imgURL, onLoad: @onLoad}
@@ -148,11 +151,20 @@ define ['react', 'TelegraphMixin', 'ReactBackboneMixin'], (React, TelegraphMixin
         div {className: 'closeButton', onClick: @onCloseButtonClick},
           i {className: 'fa fa-times'}
         div {className: 'about'},
-          span {className: 'name'},
-            span {}, @props.model.get 'name'
-            i {className: 'fa fa-facebook-square', onClick: @onFacebookClick}
+          span {className: 'name'}, @props.model.get 'name'
           br {}
           span {className: 'description'}, @props.model.get 'description'
+          br {}
+          span {className: 'social'},
+            if likes
+              div {},
+                i {className: 'fa fa-thumbs-up'}
+                span {}, likes
+            if comments
+              div {},
+                i {className: 'fa fa-comments'}
+                span {}, comments
+            i {className: 'fa fa-facebook-square', onClick: @onFacebookClick}, ' share'
         div {className: 'techSpec'},
           span {className: 'row'},
             span {}, 'Camera: '
