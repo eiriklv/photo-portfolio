@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140809095953) do
+ActiveRecord::Schema.define(version: 20140810003603) do
 
   create_table "albums", force: true do |t|
     t.string   "name"
@@ -19,9 +19,29 @@ ActiveRecord::Schema.define(version: 20140809095953) do
     t.integer  "position"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "facebook_id"
   end
 
   create_table "cams", force: true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "facebook_comments", force: true do |t|
+    t.string   "identifier"
+    t.integer  "photo_id"
+    t.integer  "facebook_user_id"
+    t.text     "message"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "facebook_comments", ["facebook_user_id"], name: "index_facebook_comments_on_facebook_user_id", using: :btree
+  add_index "facebook_comments", ["photo_id"], name: "index_facebook_comments_on_photo_id", using: :btree
+
+  create_table "facebook_users", force: true do |t|
+    t.string   "identifier"
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -32,6 +52,16 @@ ActiveRecord::Schema.define(version: 20140809095953) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "photo_facebook_users", force: true do |t|
+    t.integer  "photo_id"
+    t.integer  "facebook_user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "photo_facebook_users", ["facebook_user_id"], name: "index_photo_facebook_users_on_facebook_user_id", using: :btree
+  add_index "photo_facebook_users", ["photo_id"], name: "index_photo_facebook_users_on_photo_id", using: :btree
 
   create_table "photos", force: true do |t|
     t.string   "name"
@@ -52,6 +82,9 @@ ActiveRecord::Schema.define(version: 20140809095953) do
     t.datetime "image_updated_at"
     t.integer  "album_id"
     t.date     "date"
+    t.string   "facebook_id"
+    t.integer  "likes"
+    t.integer  "comments"
   end
 
   add_index "photos", ["album_id"], name: "index_photos_on_album_id", using: :btree
@@ -71,6 +104,7 @@ ActiveRecord::Schema.define(version: 20140809095953) do
     t.string   "last_sign_in_ip"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.text     "access_token"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree

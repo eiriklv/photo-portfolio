@@ -4,6 +4,9 @@
   - @albums.each do |album|
     %tr{'data-id' => album.id}
       %td.ncol= album.name
+      %td
+        - if album.facebook_id.present?
+          = link_to 'FB', "https://www.facebook.com/karenishe/media_set?set=a.#{album.facebook_id}", target: '_blank', class: 'btn btn-xs btn-info'
       / %td= album.description
       / %td= album.position
       %td.acol

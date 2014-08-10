@@ -2,6 +2,8 @@ class Album < ActiveRecord::Base
   has_many :photos
   
   default_scope order 'position desc'
+  
+  after_create :createOnFacebook
 
   def self.sort(ids)
     transaction do
@@ -11,4 +13,13 @@ class Album < ActiveRecord::Base
       end
     end
   end
+
+  private
+
+  def createOnFacebook
+    me = FbGraph::User.me Rails.application.config.FB_ACCESS_TOKEN
+    album = me.album! name: self.name
+    self.update facebook_id: album.raw_attributes['id']
+  end
+
 end

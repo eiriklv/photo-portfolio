@@ -9,6 +9,10 @@ PhotoPortfolio::Application.routes.draw do
     collection do
       post :sort
     end
+    member do
+      get :publish_on_facebook
+      get :refresh_from_facebook
+    end
   end
   resources :lenses, path: 'admin/lenses'
   resources :lens, path: 'admin/lenses'

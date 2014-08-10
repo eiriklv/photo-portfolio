@@ -2,6 +2,10 @@ class Photo < ActiveRecord::Base
   belongs_to :album
   belongs_to :cam
   belongs_to :lens
+  
+  has_many :photo_facebook_users, dependent: :destroy
+  has_many :facebook_users, through: :photo_facebook_users
+  has_many :facebook_comments
 
   has_attached_file :image, styles: {
     preview: '70x70>',

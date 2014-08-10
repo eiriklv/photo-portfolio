@@ -42,11 +42,23 @@
           = photo.date
         - else
           %span.label.label-warning No date
+      %td
+        - if photo.facebook_id.present?
+          = link_to 'FB', "https://www.facebook.com/photo.php?fbid=#{photo.facebook_id}", target: '_blank', class: 'btn btn-xs btn-info'
+        - else
+          = link_to 'Publish', publish_on_facebook_photo_path(photo), class: 'btn btn-xs btn-success'
       %td.icol= image_tag photo.image.url :preview
       %td.acol
         %span.btn.btn-xs.btn-default
           %span.glyphicon.glyphicon-sort
         = link_to 'Edit', edit_photo_path(photo), class: 'btn btn-xs btn-primary'
         = link_to 'Destroy', photo, :method => :delete, :data => { :confirm => 'Are you sure?' }, class: 'btn btn-xs btn-danger'
+        %hr.shr
+        - if photo.facebook_id.present?
+          %i.fa.fa-thumbs-up
+          .sm= photo.likes
+          %i.fa.fa-comments
+          .sm= photo.comments
+          = link_to '<i class="fa fa-refresh"></i>'.html_safe, refresh_from_facebook_photo_path(photo), class: 'btn btn-xs btn-info'
 
 = link_to 'New Photo', new_photo_path, class: 'btn btn-success'

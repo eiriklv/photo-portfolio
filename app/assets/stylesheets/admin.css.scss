@@ -16,6 +16,21 @@
 
 @import 'bootstrap-sprockets';
 @import 'bootstrap';
+@import url(http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css);
+
+
+
+.container{
+  width:1280px;
+
+  &.main{
+    padding-top:50px;
+  }
+}
+
+.alert{
+  margin:10px 0;
+}
 
 .acol{
   width:140px;
@@ -34,4 +49,12 @@
   span.label{
     font-size:12px;
   }
+}
+
+.shr{
+  margin:5px 0;
+}
+.sm{
+  font-size:12px;
+  display:inline;
 }

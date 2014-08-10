@@ -7,7 +7,9 @@
     = csrf_meta_tags
   %body
     = render partial: 'admin/top_menu' if signed_in?
-    .container
-      %p.notice= notice
-      %p.alert= alert
+    .container.main
+      - if notice.present?
+        %div.alert.alert-success= notice
+      - if alert.present?
+        %div.alert.alert-danger= alert
       = yield
