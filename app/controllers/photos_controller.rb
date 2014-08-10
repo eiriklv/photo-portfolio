@@ -10,7 +10,7 @@ class PhotosController < ApplicationController
       photo = album.photo!(
         access_token: current_user.access_token,
         source: File.new(@photo.image.path(:normal)),
-        message: "#{@photo.name}\n <br />#{@photo.description}\n <br />http://#{Rails.application.config.host_name}/photo/all/#{@photo.id}"
+        message: "\"#{@photo.name}\"\n #{@photo.description}\n http://#{Rails.application.config.host_name}/photo/all/#{@photo.id}"
       )
       @photo.update facebook_id: photo.raw_attributes['id']
       redirect_to photos_url, notice: 'Photo was successfully published to Facebook.'
