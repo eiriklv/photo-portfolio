@@ -18,6 +18,7 @@
 * Publishing albums and photos to Facebook user account
 * Tracking photos likes and comments from Facebook on demand
 * Retrieving EXIF meta data on photo upload
+* Storing original full-size photos outside of the public folder
 
 ## Good to know
 
