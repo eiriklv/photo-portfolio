@@ -47,6 +47,8 @@
           = link_to 'FB', "https://www.facebook.com/photo.php?fbid=#{photo.facebook_id}", target: '_blank', class: 'btn btn-xs btn-info'
         - else
           = link_to 'Publish', publish_on_facebook_photo_path(photo), class: 'btn btn-xs btn-success'
+        - if photo.photosight_url.present?
+          = link_to 'PS', photo.photosight_url, target: '_blank', class: 'btn btn-xs btn-default'
       %td.icol= image_tag photo.image.url :preview
       %td.acol
         %span.btn.btn-xs.btn-default
@@ -54,7 +56,7 @@
         = link_to 'Edit', edit_photo_path(photo), class: 'btn btn-xs btn-primary'
         = link_to 'Destroy', photo, :method => :delete, :data => { :confirm => 'Are you sure?' }, class: 'btn btn-xs btn-danger'
         %hr.shr
-        - if photo.facebook_id.present?
+        - if photo.facebook_id.present? or photo.photosight_url.present?
           %i.fa.fa-thumbs-up
           .sm= photo.likes
           %i.fa.fa-comments

@@ -42,5 +42,8 @@
   .form-group
     = f.label 'Focal distance (34mm)'
     = f.number_field :focal_distance, class: 'form-control'
+  .form-group
+    = f.label 'Photosight URL'
+    = f.text_field :photosight_url, class: 'form-control'
   .actions
     = f.submit 'Save', class: 'btn btn-success'

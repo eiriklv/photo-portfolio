@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140810003603) do
+ActiveRecord::Schema.define(version: 20140914114345) do
 
   create_table "albums", force: true do |t|
     t.string   "name"
@@ -85,6 +85,7 @@ ActiveRecord::Schema.define(version: 20140810003603) do
     t.string   "facebook_id"
     t.integer  "likes"
     t.integer  "comments"
+    t.string   "photosight_url"
   end
 
   add_index "photos", ["album_id"], name: "index_photos_on_album_id", using: :btree

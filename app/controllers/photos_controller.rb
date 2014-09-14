@@ -2,6 +2,8 @@ class PhotosController < ApplicationController
   before_action :set_photo, only: [:show, :edit, :update, :destroy, :publish_on_facebook, :refresh_from_facebook]
 
   layout 'admin'
+  
+  require 'open-uri'
 
   def publish_on_facebook
     if Rails.env.production?
@@ -20,27 +22,49 @@ class PhotosController < ApplicationController
   end
   
   def refresh_from_facebook
-    if Rails.env.production?
-      me = FbGraph::User.me current_user.access_token
-      photo = FbGraph::Photo.new @photo.facebook_id, access_token: current_user.access_token
+    if Rails.env.production? or true
 
-      @photo.facebook_users = []
-      likes = photo.likes
-      while likes.count > 0
-        save_likes likes, @photo
-        likes = likes.next
+      if @photo.facebook_id.present?
+        me = FbGraph::User.me current_user.access_token
+        photo = FbGraph::Photo.new @photo.facebook_id, access_token: current_user.access_token
+
+        @photo.facebook_users = []
+        likes = photo.likes
+        while likes.count > 0
+          save_likes likes, @photo
+          likes = likes.next
+        end
+        @photo.update likes: @photo.facebook_users.count
+
+        @photo.facebook_comments.destroy_all
+        comments = photo.comments
+        while comments.count > 0
+          save_comments comments, @photo
+          comments = comments.next
+        end
+        @photo.update comments: @photo.facebook_comments.count
       end
-      @photo.update likes: @photo.facebook_users.count
 
-      @photo.facebook_comments.destroy_all
-      comments = photo.comments
-      while comments.count > 0
-        save_comments comments, @photo
-        comments = comments.next
+      if @photo.photosight_url.present?
+        pageIO = open @photo.photosight_url
+        pageData = pageIO.read
+        
+        plusCount = 0
+        
+        plus = pageData.scan /<span id="recommendations_[^"]*" class="result">([\d]*)<\/span>/i
+        plus.each { |pl| plusCount += pl[0].to_i }
+
+        minus = pageData.scan /<span id="negative_marks_count_s" class="result">([\d]*)<\/span>/i
+        minus.each { |mn| plusCount -= mn[0].to_i }
+        
+        @photo.update likes: (@photo.facebook_users.count + plusCount)
+        
+        comments = pageData.scan /class="commenttext"/i
+        @photo.update comments: (@photo.facebook_comments.count + comments.count)
+        
       end
-      @photo.update comments: @photo.facebook_comments.count
 
-      redirect_to photos_url, notice: 'Photo data was successfully refreshed from Facebook.'
+      redirect_to photos_url, notice: 'Photo data was successfully refreshed from Facebook and/or Photosight.'
     else
       redirect_to photos_url, notice: 'Looks like you are not in production environment.'
     end
@@ -124,7 +148,7 @@ class PhotosController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def photo_params
-      params.require(:photo).permit(:name, :description, :position, :views, :cam_id, :lens_id, :iso, :aperture, :exposure, :focal_distance, :image, :date, :album_id)
+      params.require(:photo).permit(:name, :description, :position, :views, :cam_id, :lens_id, :iso, :aperture, :exposure, :focal_distance, :image, :date, :album_id, :photosight_url)
     end
     
     def save_likes (likes, _photo)
