@@ -22,7 +22,7 @@ class PhotosController < ApplicationController
   end
   
   def refresh_from_facebook
-    if Rails.env.production? or true
+    if Rails.env.production?
 
       if @photo.facebook_id.present?
         me = FbGraph::User.me current_user.access_token
